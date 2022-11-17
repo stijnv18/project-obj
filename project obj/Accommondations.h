@@ -2,40 +2,20 @@
 #include "LuxuryLevel.h"
 class Accommondations {
 public:
-    int getID()const {
-        return ID;
-    }
-    void setID(int IDNumber) {
-        ID = IDNumber;
-    }
-    int getNrPeople()const {
-        return nrPeople;
-    }
-    void setNrPeople(int nrPeopleNumber) {
-        nrPeople = nrPeopleNumber;
-    }
-    int getSize()const {
-        return size;
-    }
-    void setSize(int sizeNumber) {
-        size = sizeNumber;
-    }
-    bool getBathroomWithBath()const {
-        return ID;
-    }
-    void setBathroomWithBath(bool bathroomWithBathState) {
-        bathroomWithBath = bathroomWithBathState;
-    }
-    LuxuryLevel getLuxuryLevel()const {
-        return luxuryLevel;
-    }
-    void setLuxuryLevel(LuxuryLevel luxuryLevelSet) {
-        luxuryLevel = luxuryLevelSet;
-    }
+	int getID()const;
+	void setID(int IDNumber);
+	int getNrPeople()const;
+	void setNrPeople(int nrPeopleNumber);
+	int getSize()const;
+	void setSize(int sizeNumber);
+	bool getBathroomWithBath()const;
+	void setBathroomWithBath(bool bathroomWithBathState);
+	LuxuryLevel getLuxuryLevel()const;
+	void setLuxuryLevel(LuxuryLevel luxuryLevelSet);
 private:
-    int ID;
-    int nrPeople;
-    int size;
-    bool bathroomWithBath;
-    LuxuryLevel luxuryLevel;
+	int ID;
+	int nrPeople;
+	int size;
+	bool bathroomWithBath;
+	LuxuryLevel luxuryLevel;
 };

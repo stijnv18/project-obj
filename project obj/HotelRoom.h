@@ -1,34 +1,21 @@
+#pragma once
 #include <string>
+
 class HotelRoom
 {
 public:
-    int getFloor() const {
-        return floor;
-    }
-    void setFloor(int floorNumbers) {
-        floor = floorNumbers;
-    }
-    std::string getLocation() const {
-        return location;
-    }
-    void setLocation(std::string locationName) {
-        location = locationName;
-    }
-    int getNrBeds() const {
-        return nrBeds;
-    }
-    void setNrBeds(int nrBedsNumber) {
-        nrBeds = nrBedsNumber;
-    }
-    bool getChildrenBeds() const {
-        return childrenBed;
-    }
-    void setChildrenBeds(bool childrenBedsState) {
-        childrenBed = childrenBedsState;
-    }
+	int getFloor() const;
+		void setFloor(int floorNumbers);
+		std::string getLocation() const;
+		void setLocation(std::string locationName);
+		int getNrBeds() const;
+		void setNrBeds(int nrBedsNumber);
+		bool getChildrenBeds() const;
+		void setChildrenBeds(bool childrenBedsState);
 private:
-    int floor;
-    std::string location;
-    bool childrenBed;
-    int nrBeds;
+	int floor;
+	std::string location;
+	bool childrenBed;
+	int nrBeds;
 };
+

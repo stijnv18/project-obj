@@ -1,15 +1,8 @@
 #pragma once
-class cabin {
+class Cabin {
 public:
-	void setCabin(int bedroomsNumber) {
-		bedrooms = bedroomsNumber;
-	}
-
-	int getCabin() const {
-		return bedrooms;
-	}
+	void setCabin(int);
+	int getCabin()const;
 private:
 	int bedrooms;
 };
-
-
