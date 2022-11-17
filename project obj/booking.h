@@ -15,8 +15,6 @@ public:
     bool getActivityPass() const;
     void setSportPass(bool SportPassSet);
     bool getSportPass() const;
-    void setSportPass(bool SportPassSet);
-    bool getSportPass() const;
     void setBicycleRent(bool bicycleRentSet);
     bool getBicycleRent() const;
     void setSwimmingPass(bool swimmingPassSet);
