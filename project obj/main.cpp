@@ -105,7 +105,24 @@ Cabin createCabin(int NumberOfRooms) {
 	temp.setCabin(NumberOfRooms);
 	return temp;
 }
+
+LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
+
 int main() {
 	addhotelroom(6);
 	return 0;
+}
+
+LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind)
+{
+	LuxuryLevel LL;
+
+	LL.setBBQ(BBQ);
+	LL.setSurroundSystem(SurroundSystem);
+	LL.setBreakfastService(breakfastService);
+	LL.setCleaningService(cleaningService);
+	LL.setAccommodationKind(accomodationKind);
+
+
+	return LuxuryLevel();
 }

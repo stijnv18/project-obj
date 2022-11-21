@@ -39,6 +39,6 @@ string LuxuryLevel::getAccommodationKind() const {
     return accommodationKind;
 }
 //function 8 SET accommodationKind
-void LuxuryLevel::setAccommodationKind(bool LLaccommodationKind) {
+void LuxuryLevel::setAccommodationKind(string LLaccommodationKind) {
     accommodationKind = LLaccommodationKind;
 }
