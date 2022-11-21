@@ -1,3 +1,4 @@
+#pragma once
 #include "Accommondations.h" 
 #include "HotelRoom.h"
 #include "Cabin.h"
