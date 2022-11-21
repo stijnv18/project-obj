@@ -23,7 +23,7 @@ public:
     //function 7 GET accommodationKind
     std::string getAccommodationKind() const;
     //function 8 SET accommodationKind
-    void setAccommodationKind(bool LLaccommodationKind);
+    void setAccommodationKind(std::string LLaccommodationKind);
 private:
     bool BBQ;
     bool surroundSystem;
