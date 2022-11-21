@@ -109,5 +109,3 @@ int main() {
 	addhotelroom(6);
 	return 0;
 }
-
-
