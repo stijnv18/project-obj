@@ -33,12 +33,6 @@ void Booking::setSportPass(bool SportPassSet) {
 bool Booking::getSportPass() const {
     return sportsPass;
 }
-void Booking::setSportPass(bool SportPassSet) {
-    sportsPass = SportPassSet;
-}
-bool Booking::getSportPass() const {
-    return sportsPass;
-}
 void Booking::setBicycleRent(bool bicycleRentSet) {
     bicycleRent = bicycleRentSet;
 }

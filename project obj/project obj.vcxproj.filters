@@ -42,9 +42,6 @@
     <ClCompile Include="ParcServices.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VacationParcs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
