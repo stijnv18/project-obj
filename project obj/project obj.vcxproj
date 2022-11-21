@@ -148,7 +148,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parcs.cpp" />
     <ClCompile Include="ParcServices.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="VacationParcs.cpp" />
   </ItemGroup>
   <ItemGroup>
