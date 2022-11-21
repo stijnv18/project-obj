@@ -95,7 +95,16 @@ void addhotelroom(int floors) {
 	hotelroom.setNrBeds(nrBeds);
 	hotelroom.setChildrenBeds(childrenBed);
 }
+int main() {
+	Cabin cabin;
+	cabin = createCabin(110);
+}
 
+Cabin createCabin(int NumberOfRooms) {
+	Cabin temp;
+	temp.setCabin(NumberOfRooms);
+	return temp;
+}
 int main() {
 	addhotelroom(6);
 	return 0;
