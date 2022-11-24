@@ -53,6 +53,30 @@ using namespace std;
 //	}
 //}
 
+LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind);
+void addhotelroom(int floors);
+Cabin createCabin(int NumberOfRooms);
+
+int main() {
+	Cabin cabin;
+	cabin = createCabin(110);
+	HotelRoom hotelroom;
+	addhotelroom(6);
+	return 0;
+}
+
+LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind)
+{
+	LuxuryLevel LL;
+
+	LL.setBBQ(BBQ);
+	LL.setSurroundSystem(SurroundSystem);
+	LL.setBreakfastService(breakfastService);
+	LL.setCleaningService(cleaningService);
+	LL.setAccommodationKind(accomodationKind);
+	return LuxuryLevel();
+}
+
 void addhotelroom(int floors) {
 	HotelRoom hotelroom;
 	int floor;
@@ -95,34 +119,9 @@ void addhotelroom(int floors) {
 	hotelroom.setNrBeds(nrBeds);
 	hotelroom.setChildrenBeds(childrenBed);
 }
-int main() {
-	Cabin cabin;
-	cabin = createCabin(110);
-}
 
 Cabin createCabin(int NumberOfRooms) {
 	Cabin temp;
 	temp.setCabin(NumberOfRooms);
 	return temp;
-}
-
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
-
-int main() {
-	addhotelroom(6);
-	return 0;
-}
-
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind)
-{
-	LuxuryLevel LL;
-
-	LL.setBBQ(BBQ);
-	LL.setSurroundSystem(SurroundSystem);
-	LL.setBreakfastService(breakfastService);
-	LL.setCleaningService(cleaningService);
-	LL.setAccommodationKind(accomodationKind);
-
-
-	return LuxuryLevel();
 }
