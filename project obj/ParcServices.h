@@ -1,7 +1,9 @@
 #pragma once
+#include <string>
 class ParcServices
 {
 public:
+    std::string toString() const;
     //function 1 GET subtropicSwimmingPool
     bool getSubtropicSwimmingPool() const;
     //function 2 SET subtropicSwimmingPool

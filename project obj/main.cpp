@@ -56,13 +56,25 @@ using namespace std;
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind);
 void addhotelroom(int floors);
 Cabin createCabin(int NumberOfRooms);
+ParcServices addparcservices();
+
 
 int main() {
 	Cabin cabin;
+	ParcServices parcservices;
+	parcservices = addparcservices();
+	cout << parcservices.toString();
 	cabin = createCabin(110);
 	HotelRoom hotelroom;
 	addhotelroom(6);
 	return 0;
+}
+
+bool question(string q) {
+	string temp;
+	cout << q << endl;
+	do { cin >> temp; } while (temp != "no" and temp != "yes");
+	return temp == "yes";
 }
 
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind)
@@ -79,49 +91,58 @@ LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, b
 
 void addhotelroom(int floors) {
 	HotelRoom hotelroom;
-	int floor;
+	int floor = -1;
 	string location;
-	int nrBeds;
+	int nrBeds = -1;
 	bool childrenBed;
 	string temp;
 	cout << "floor number: " << endl;
-	do
+	while (floor > floors or floor < 0)
 	{
-		cin >> floor;
-	} while (floor > floors or floor < 0);
+		while (!(cin >> floor))
+		{
+			cout << "try again: " << endl;
+			cin.clear();
+			cin.ignore(123, '\n');
+		}
+	}
 	cout << "location of the room (streetside, lakeside): " << endl;
 	do
 	{
 		cin >> location;
 	} while (location != "streetside" and location != "lakeside");
 	cout << "number of beds: " << endl;
-	do
+	while (nrBeds > 6 or nrBeds < 0)
 	{
-		cin >> nrBeds;
-	} while (nrBeds > 4 or nrBeds < 0);
-	cout << "children bed in the room (yes, no):" << endl;
-	do
-	{
-		cin >> temp;
-	} while (temp != "no" and temp != "yes");
-	while (temp == "yes")
-	{
-		childrenBed = true;
-		break;
+		while (!(cin >> nrBeds))
+		{
+			cout << "try again: " << endl;
+			cin.clear();
+			cin.ignore(123, '\n');
+		}
 	}
-	while (temp == "no")
-	{
-		childrenBed = false;
-		break;
-	}
+	hotelroom.setChildrenBeds(question("children bed in room (yes, no):"));
 	hotelroom.setFloor(floor);
 	hotelroom.setLocation(location);
 	hotelroom.setNrBeds(nrBeds);
-	hotelroom.setChildrenBeds(childrenBed);
 }
 
 Cabin createCabin(int NumberOfRooms) {
 	Cabin temp;
 	temp.setCabin(NumberOfRooms);
 	return temp;
+}
+
+ParcServices addparcservices()
+{
+	ParcServices parcservices;
+
+	cout << "services the park has to offer" << endl;
+	parcservices.setSubtropicSwimmingPool(question("subtropic pool (yes, no):"));
+	parcservices.setSportsInfrastructure(question("sportinfrastructure (yes, no):"));
+	parcservices.setBowlingAlley(question("bowling alley (yes, no):"));
+	parcservices.setBicycleRent(question("bicycle rent (yes, no):"));
+	parcservices.setChilderensParadise(question("children paradise (yes, no):"));
+	parcservices.setWaterBikes(question("water bikes (yes, no):"));
+	return parcservices;
 }
