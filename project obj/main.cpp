@@ -56,8 +56,8 @@ using namespace std;
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind);
 void addhotelroom(int floors);
 Cabin createCabin(int NumberOfRooms);
+LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
 ParcServices addparcservices();
-
 
 int main() {
 	Cabin cabin;
@@ -224,9 +224,6 @@ void SearchCustomer() {
 }
 
 
-int main() {
-	SearchCustomer();
-}
 
 Cabin createCabin(int NumberOfRooms) {
 	Cabin temp;
@@ -234,7 +231,7 @@ Cabin createCabin(int NumberOfRooms) {
 	return temp;
 }
 
-<<<<<<< HEAD
+
 ParcServices addparcservices()
 {
 	ParcServices parcservices;
@@ -248,22 +245,8 @@ ParcServices addparcservices()
 	parcservices.setWaterBikes(question("water bikes (yes, no):"));
 	return parcservices;
 }
-=======
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
 
 
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind)
-{
-	LuxuryLevel LL;
-
-	LL.setBBQ(BBQ);
-	LL.setSurroundSystem(SurroundSystem);
-	LL.setBreakfastService(breakfastService);
-	LL.setCleaningService(cleaningService);
-	LL.setAccommodationKind(accomodationKind);
 
 
-	return LuxuryLevel();
-}
 
->>>>>>> e83f0f8c2b127cc8f0a5e376e66d49df4f287b5e

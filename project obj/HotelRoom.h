@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include "Accommondations.h"
 class HotelRoom: public Accommondations
 {
 public:

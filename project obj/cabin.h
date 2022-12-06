@@ -1,4 +1,5 @@
 #pragma once
+#include "Accommondations.h"
 class Cabin: public Accommondations{
 public:
 	void setCabin(int);
