@@ -53,25 +53,28 @@ using namespace std;
 //	}
 //}
 
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind);
+LuxuryLevel createLuxury();
+LuxuryLevel changeLuxuryLevel(LuxuryLevel);
 HotelRoom addhotelroom(int floors);
 Cabin createCabin(int NumberOfRooms);
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
 ParcServices addparcservices();
-
+Accommondations createAccomodation();
+Accommondations editAccommodation(Accommondations accommodation);
+bool question(string);
 int main() {
 	Cabin cabin;
 	ParcServices parcservices;
+	Accommondations accom;
 	parcservices = addparcservices();
 	cout << parcservices.toString();
-	cabin = createCabin(110);
-	HotelRoom hotelroom;
-	addhotelroom(6);
+	accom = createAccomodation();
+	accom = editAccommodation(accom);
+
+	accom = editAccommodation(accom);
 	return 0;
 }
-
-
 Accommondations createAccomodation() {
+	//add radnom id
 	int cabinOrHotelroom;
 	int numberOfPeople;
 	int temp;
@@ -120,7 +123,7 @@ Accommondations createAccomodation() {
 	cout << "What is the size: " << endl;
 	cin >> size;
 
-	LevelOfluxury = LuxuryLevel();
+	LevelOfluxury = createLuxury();
 	if (cabinOrHotelroom==2)
 	{
 		cabin.setNrPeople(numberOfPeople);
@@ -139,32 +142,133 @@ Accommondations createAccomodation() {
 	}
 
 }
+Accommondations editAccommodation(Accommondations accommodation) {
+	int option;
+	LuxuryLevel luxurylevel;
+	luxurylevel = accommodation.getLuxuryLevel();
+	cout << accommodation.getSize()<<endl;
+	cout << accommodation.getNrPeople() << endl;
+	cout << accommodation.getBathroomWithBath() << endl;
+	// luxury level
+	cout << luxurylevel.getAccommodationKind() <<endl;
+	cout << luxurylevel.getBBQ() << endl;
+	cout << luxurylevel.getBreakfastService() << endl;
+	cout << luxurylevel.getCleaningService() << endl;
+	cout << luxurylevel.getSurroundSystem() << endl;
+
+	int newid;
+	int newppl;
+	int newsize;
+	bool newbath;
 
 
+	cout << "what do you want to change " <<endl;
+	cout << "id(1) nubmer of ppl(2) size(3) bath(4) luxuryLevel(5)" << endl;
+	cin >> option;
 
+	if (option==1)
+	{
+		cout << "what is the new id:" << endl;
+		cin >> newid;
+		accommodation.setID(newid);
+	}
+	else if (option==2)
+	{
+		cout << "what is the new nubmer of people:" << endl;
+		cin >> newppl;
+		accommodation.setID(newppl);
+	}
+	else if (option == 3)
+	{
+		cout << "what is the new size:" << endl;
+		cin >> newsize;
+		accommodation.setID(newsize);
+	}
+	else if (option == 4)
+	{
+		newbath = question("Is there a bath");
+		accommodation.setID(newbath);
+	}
+	else if (option == 5)
+	{
+	luxurylevel = changeLuxuryLevel(luxurylevel);
+	}
 
-
-
-
+	return accommodation;
+}
 bool question(string q) {
 	string temp;
 	cout << q << endl;
 	do { cin >> temp; } while (temp != "no" and temp != "yes");
 	return temp == "yes";
 }
-
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind)
+LuxuryLevel createLuxury()
 {
 	LuxuryLevel LL;
+	bool BBQ;
+	bool SurroundSystem;
+	bool breakfastService;
+	bool cleaningService;
+	string accomodationKind;
+
+	//yes/no  questions
+	SurroundSystem = question("is thre a surround system:");
+	BBQ = question("Is there a bbq:");
+	breakfastService = question("Is there breakfast service:");
+	cleaningService = question("Is there a cleaning Service:");
+	
+	//string
+	cout << "what is the accomodatoin kind:";
+	cin >> accomodationKind;
 
 	LL.setBBQ(BBQ);
 	LL.setSurroundSystem(SurroundSystem);
 	LL.setBreakfastService(breakfastService);
 	LL.setCleaningService(cleaningService);
 	LL.setAccommodationKind(accomodationKind);
-	return LuxuryLevel();
+	return LL;
 }
+LuxuryLevel changeLuxuryLevel(LuxuryLevel LL) {
 
+	int option;
+	bool BBQ;
+	bool SurroundSystem;
+	bool breakfastService;
+	bool cleaningService;
+	string accomodationKind;
+	cout << "what do you want to change " << endl;
+	cout << "Surround system(1) Breakfast(2) cleaning(3) accomodationKind(4) BBQ(5)" << endl;
+	cin >> option;
+
+	if (option == 1)
+	{
+		SurroundSystem = question("is thre a surround system:");
+		LL.setSurroundSystem(SurroundSystem);
+	}
+	else if (option == 2)
+	{
+		breakfastService = question("Is there breakfast service:");
+		LL.setBreakfastService(breakfastService);
+	}
+	else if (option == 3)
+	{
+		cleaningService = question("Is there a cleaning Service:");
+		LL.setCleaningService(cleaningService);
+	}
+	else if (option == 4)
+	{
+		cout << "what is the accomodatoin kind:";
+		cin >> accomodationKind;
+		LL.setAccommodationKind(accomodationKind);
+
+	}
+	else if (option == 5)
+	{
+		BBQ = question("Is there a bbq:");
+		LL.setBBQ(BBQ);
+	}
+	return LL;
+}
 HotelRoom addhotelroom(int floors) {
 	HotelRoom hotelroom;
 	int floor = -1;
@@ -265,7 +369,6 @@ void DeleteCustomer(std::string cust) {
 
 
 }
-
 void SearchCustomer() {
 	Customer customer;
 	std::string Scustom = "Joren";
@@ -299,16 +402,11 @@ void SearchCustomer() {
 	} while (choise != 0);
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 }
-
-
-
 Cabin createCabin(int NumberOfRooms) {
 	Cabin temp;
 	temp.setCabin(NumberOfRooms);
 	return temp;
 }
-
-
 ParcServices addparcservices()
 {
 	ParcServices parcservices;
@@ -322,8 +420,3 @@ ParcServices addparcservices()
 	parcservices.setWaterBikes(question("water bikes (yes, no):"));
 	return parcservices;
 }
-
-
-
-
-
