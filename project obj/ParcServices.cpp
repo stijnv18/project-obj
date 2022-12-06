@@ -1,5 +1,17 @@
 #include "ParcServices.h"
 #include <string>
+#include <sstream>
+
+std::string ParcServices::toString() const {
+    std::stringstream ss;
+    ss << "SubtropicSwimmingPool: " << (getSubtropicSwimmingPool() ? "true" : "false")
+       << "\nSportsInfrastructure: " << (getSportsInfrastructure() ? "true" : "false")
+       << "\nBowlingAlley: " << (getBowlingAlley() ? "true" : "false")
+       << "\nBicycleRent: " << (getBicycleRent() ? "true" : "false")
+       << "\nChilderensParadise: " << (getChilderensParadise() ? "true" : "false")
+       << "\nWaterBikes: " << (getWaterBikes() ? "true\n" : "false\n");
+    return ss.str();
+}
 //function 1 GET subtropicSwimmingPool
 bool ParcServices::getSubtropicSwimmingPool() const {
     return subtropicSwimmingPool;
