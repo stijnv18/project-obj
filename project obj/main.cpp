@@ -54,7 +54,7 @@ using namespace std;
 //}
 
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind);
-void addhotelroom(int floors);
+HotelRoom addhotelroom(int floors);
 Cabin createCabin(int NumberOfRooms);
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
 ParcServices addparcservices();
@@ -69,6 +69,82 @@ int main() {
 	addhotelroom(6);
 	return 0;
 }
+
+
+Accommondations createAccomodation() {
+	int cabinOrHotelroom;
+	int numberOfPeople;
+	int temp;
+	bool bath;
+	int size;
+	int ID;
+	int maxNumberOfFloors;
+	LuxuryLevel LevelOfluxury;
+	Cabin cabin;
+	HotelRoom hotelroom;
+	cout << "Do you want a hotel room(1) or cabin(2): " << endl;
+	do
+	{
+		cin >> cabinOrHotelroom;
+	} while (cabinOrHotelroom > 2 or cabinOrHotelroom < 1);
+	if (cabinOrHotelroom == 1) {
+		cout << "what is the max number of floors:" << endl;
+		cin >> maxNumberOfFloors;
+		 hotelroom = addhotelroom(maxNumberOfFloors);
+	}
+
+	else if (cabinOrHotelroom == 2) {
+		int numberOfRooms;
+		cout << "What are the number of rooms: " << endl;
+		cin >> numberOfRooms;
+		 cabin = createCabin(numberOfRooms);
+	}
+
+
+	cout << "What are the number of people: " << endl;
+	cin >> numberOfPeople;
+
+	cout << "Does it have a bath yes(1) no (0): " << endl;
+	do
+	{
+		cin >> temp;
+	} while (temp > 1 or temp < 0);
+	if (temp == 1) {
+		bath = true;
+	}
+	else if (temp == 0)
+	{
+		bath = false;
+	}
+
+	cout << "What is the size: " << endl;
+	cin >> size;
+
+	LevelOfluxury = LuxuryLevel();
+	if (cabinOrHotelroom==2)
+	{
+		cabin.setNrPeople(numberOfPeople);
+		cabin.setBathroomWithBath(bath);
+		cabin.setSize(size);
+		cabin.setLuxuryLevel(LevelOfluxury);
+		return cabin;
+	}
+	else
+	{
+	hotelroom.setNrPeople(numberOfPeople);
+	hotelroom.setBathroomWithBath(bath);
+	hotelroom.setSize(size);
+	hotelroom.setLuxuryLevel(LevelOfluxury);
+	return hotelroom;
+	}
+
+}
+
+
+
+
+
+
 
 bool question(string q) {
 	string temp;
@@ -89,7 +165,7 @@ LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, b
 	return LuxuryLevel();
 }
 
-void addhotelroom(int floors) {
+HotelRoom addhotelroom(int floors) {
 	HotelRoom hotelroom;
 	int floor = -1;
 	string location;
@@ -125,6 +201,7 @@ void addhotelroom(int floors) {
 	hotelroom.setFloor(floor);
 	hotelroom.setLocation(location);
 	hotelroom.setNrBeds(nrBeds);
+	return hotelroom;
 }
 void CreateCustomer() {
 	Customer customer;
