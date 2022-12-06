@@ -15,10 +15,10 @@ void Booking::setCustomer(Customer customerset) {
 Customer Booking::getCustomer() const {
     return customer;
 }
-void Booking::setAccomodatins(vector<Accommondations> accommodationsset) {
+void Booking::setAccomodations(vector<Accommondations> accommodationsset) {
     accommondations = accommodationsset;
 }
-vector<Accommondations> Booking::getAccommodatins() const {
+vector<Accommondations> Booking::getAccommodations() const {
     return accommondations;
 }
 void Booking::setActivityPass(bool ActivityPassset) {

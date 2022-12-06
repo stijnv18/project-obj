@@ -14,62 +14,45 @@
 #include <stdlib.h>
 using namespace std;
 
-//void addparc(){
-//	string name,type;
-//	Accommondations accomondation;
-//	Parcs parc;
-//	HotelRoom hotel;
-//	Cabin cabin;
-//	int ID = 0;
-//	int luxlvl;
-//	cout << "Adding parc" << endl << "name: ";
-//	cin >> name;
-//	parc.setName(name);
-//	cout << "address: " << endl;
-//	cin >> name;
-//	hotel.setLocation(name);
-//	cout << "number of rooms: " << endl;
-//	cin >> ID;
-//	for (int i = 0; i < ID; i++)
-//	{
-//		accomondation.setID(i);
-//		cout << "give luxury level: "<< endl;
-//		cin >> luxlvl;
-//		switch (luxlvl)
-//		{
-//		case 1:
-//		case 2:
-//		case 3:
-//		default:
-//			break;
-//		}
-//		cout << "type of building (bungalow or hotel): " << endl;
-//		cin >> type;
-//		while (type == "hotel")
-//		{
-//			
-//			break;
-//		}
-//	}
-//}
-
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind);
 HotelRoom addhotelroom(int floors);
 Cabin createCabin(int NumberOfRooms);
-LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
 ParcServices addparcservices();
+void manageBooking(vector<Booking>& bookings);
+void changeBooking(vector<Booking>& bookings, int id);
+void deleteBooking(vector<Booking>& bookings, int id);
+void addBooking(vector<Booking>& bookings, int id);
 
 int main() {
-	Cabin cabin;
+	vector<Booking> bookings;
+	for (int i = 0; i < 4; i++)
+	{
+		
+		manageBooking(bookings);
+		cout << bookings.size();
+	}
+	/*Cabin cabin;
 	ParcServices parcservices;
 	parcservices = addparcservices();
 	cout << parcservices.toString();
 	cabin = createCabin(110);
 	HotelRoom hotelroom;
-	addhotelroom(6);
+	addhotelroom(6);*/
+	for (Booking booking : bookings)
+	{
+		int book;
+		book = booking.getID();
+		cout << book << endl;
+	}
 	return 0;
 }
 
+bool question(string q) {
+	string temp;
+	cout << q << endl;
+	do { cin >> temp; } while (temp != "n" and temp != "y");
+	return temp == "y";
+}
 
 Accommondations createAccomodation() {
 	int cabinOrHotelroom;
@@ -104,18 +87,7 @@ Accommondations createAccomodation() {
 	cout << "What are the number of people: " << endl;
 	cin >> numberOfPeople;
 
-	cout << "Does it have a bath yes(1) no (0): " << endl;
-	do
-	{
-		cin >> temp;
-	} while (temp > 1 or temp < 0);
-	if (temp == 1) {
-		bath = true;
-	}
-	else if (temp == 0)
-	{
-		bath = false;
-	}
+	cabin.setBathroomWithBath(question("does it have a bath? (yes, no)"));
 
 	cout << "What is the size: " << endl;
 	cin >> size;
@@ -124,7 +96,6 @@ Accommondations createAccomodation() {
 	if (cabinOrHotelroom==2)
 	{
 		cabin.setNrPeople(numberOfPeople);
-		cabin.setBathroomWithBath(bath);
 		cabin.setSize(size);
 		cabin.setLuxuryLevel(LevelOfluxury);
 		return cabin;
@@ -132,25 +103,11 @@ Accommondations createAccomodation() {
 	else
 	{
 	hotelroom.setNrPeople(numberOfPeople);
-	hotelroom.setBathroomWithBath(bath);
 	hotelroom.setSize(size);
 	hotelroom.setLuxuryLevel(LevelOfluxury);
 	return hotelroom;
 	}
 
-}
-
-
-
-
-
-
-
-bool question(string q) {
-	string temp;
-	cout << q << endl;
-	do { cin >> temp; } while (temp != "no" and temp != "yes");
-	return temp == "yes";
 }
 
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, string accomodationKind)
@@ -322,8 +279,156 @@ ParcServices addparcservices()
 	parcservices.setWaterBikes(question("water bikes (yes, no):"));
 	return parcservices;
 }
+// Adds a new booking with the given ID to the list of bookings
+void addBooking(vector<Booking>& bookings, int id) {
+	Booking newBooking;
+	newBooking.setID(id);
+	bookings.push_back(newBooking);
+	cout << bookings.size()<< endl;
+}
 
+// Deletes the booking with the given ID from the list of bookings
+void deleteBooking(vector<Booking>& bookings, int id) {
+	bool foundId = false;
+	for (int i = 0; i < bookings.size(); i++) {
+		if (bookings[i].getID() == id) {
+			foundId = true;
+			bookings.erase(bookings.begin() + i);
+			break;
+		}
+	}
+	if (foundId != true) {
+		cout << "there is no suck ID" << endl;
+	}
+}
 
+// Changes the details of the booking with the given ID in the list of bookings
+void changeBooking(vector<Booking>& bookings, int id) {
+	bool foundId = false;
+	for (int i = 0; i < bookings.size(); i++) {
+		if (bookings[i].getID() == id) {
+			foundId = true;
+			// Prompt the user for the new details of the booking and update the Booking object
+			cout << "Enter the new ID number for the booking: ";
+			int newID;
+			cin >> newID;
+			bookings[i].setID(newID);
 
+			// Update the customer information
+			cout << "Enter the new customer information for the booking: ";
+			Customer newCustomer;
+			string name, address, mail;
 
+			// Read the new customer information from standard input
+			cout << "Enter the customer's name: ";
+			cin >> name;
+			newCustomer.setName(name);
 
+			cout << "Enter the customer's address: ";
+			cin >> address;
+			newCustomer.setAddress(address);
+
+			cout << "Enter the customer's email address: ";
+			cin >> mail;
+			newCustomer.setMail(mail);
+
+			// Set the new customer information in the Booking object
+			bookings[i].setCustomer(newCustomer);
+
+			// Update the accommodations
+			cout << "Enter the new accommodations for the booking: " << endl;
+			vector<Accommondations> newAccommodations;
+			int id, maxOccupancy, size;
+			bool bathroomWithBath;
+			LuxuryLevel luxuryLevel;
+
+			// Read the new accommodations from standard input
+			cout << "Enter the ID of the accommodation: ";
+			cin >> id;
+			if (id < 0) {
+				cout << "Error: ID must be a positive integer." << endl;
+				return;
+			}
+
+			cout << "Enter the maximum occupancy of the accommodation: ";
+			cin >> maxOccupancy;
+			if (maxOccupancy < 0) {
+				cout << "Error: Maximum occupancy must be a positive integer." << endl;
+				return;
+			}
+
+			cout << "Enter the size of the accommodation: ";
+			cin >> size;
+			if (size < 0) {
+				cout << "Error: Size must be a positive integer." << endl;
+				return;
+			}
+
+			cout << "Does the accommodation have a bathroom with a bath (1 for yes, 0 for no)? ";
+			cin >> bathroomWithBath;
+
+			// Read the luxury level of the accommodation
+			cout << "Enter the luxury level of the accommodation: ";
+			bool hasBBQ, hasSurroundSystem, hasBreakfastService, hasCleaningService;
+			string accommodationKind;
+
+			hasBBQ = question("Does the accommodation have a BBQ (1 for yes, 0 for no)?");
+			hasSurroundSystem = question("Does the accommodation have a surround sound (1 for yes, 0 for no)?");
+			hasBreakfastService = question("Does the accommodation have a breakfast service (1 for yes, 0 for no)?");
+			hasCleaningService = question("Does the accommodation have a cleaning service (1 for yes, 0 for no)?");
+			cout << "what kind of accommondation is it? ";
+			cin >> accommodationKind;
+
+			luxuryLevel.setBBQ(hasBBQ);
+			luxuryLevel.setSurroundSystem(hasSurroundSystem);
+			luxuryLevel.setBreakfastService(hasBreakfastService);
+			luxuryLevel.setCleaningService(hasCleaningService);
+			luxuryLevel.setAccommodationKind(accommodationKind);
+
+			// Set the new accommodations in the Booking object
+			Accommondations newAccommondation;
+			newAccommondation.setID(id);
+			newAccommondation.setNrPeople(maxOccupancy);
+			newAccommondation.setSize(size);
+			newAccommondation.setBathroomWithBath(bathroomWithBath);
+			newAccommondation.setLuxuryLevel(luxuryLevel);
+			newAccommodations.push_back(newAccommondation);
+			bookings[i].setAccomodations(newAccommodations);
+
+			// Update the optional services
+			cout << "Enter the new optional services for the booking: ";
+			bool newActivityPass, newSportPass, newBicycleRent, newSwimmingPass;
+			// Read the new optional services from standard input and set it in the Booking object
+			bookings[i].setActivityPass(question("want new activity pass? (yes,no)"));
+			bookings[i].setSportPass(question("want new sport pass? (yes,no)"));
+			bookings[i].setBicycleRent(question("want new bicycle rent? (yes,no)"));
+			bookings[i].setSwimmingPass(question("want new swimming pass? (yes,no)"));
+
+			break;
+		}
+	}
+	if (foundId != true) {
+		cout << "there is no suck ID" << endl;
+	}
+}
+
+// Prompts the user for an action (add/delete/change) and ID number and performs the appropriate action on the bookings
+void manageBooking(vector<Booking>& bookings) {
+	cout << "What would you like to do? (add/delete/change)" << endl;
+	string action;
+	cin >> action;
+
+	cout << "Enter the ID number for the booking: ";
+	int id;
+	cin >> id;
+
+	if (action == "add") {
+		addBooking(bookings, id);
+	}
+	else if (action == "delete") {
+		deleteBooking(bookings, id);
+	}
+	else if (action == "change") {
+		changeBooking(bookings, id);
+	}
+}

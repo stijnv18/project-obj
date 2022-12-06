@@ -9,8 +9,8 @@ public:
     int getID() const;
     void setCustomer(Customer customerset);
     Customer getCustomer() const;
-    void setAccomodatins(std::vector<Accommondations> accommodationsset);
-    std::vector<Accommondations> getAccommodatins() const;
+    void setAccomodations(std::vector<Accommondations> accommodationsset);
+    std::vector<Accommondations> getAccommodations() const;
     void setActivityPass(bool ActivityPassset);
     bool getActivityPass() const;
     void setSportPass(bool SportPassSet);
