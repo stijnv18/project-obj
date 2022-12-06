@@ -1,5 +1,5 @@
 #pragma once
-class Cabin {
+class Cabin: public Accommondations{
 public:
 	void setCabin(int);
 	int getCabin()const;

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-class HotelRoom
+class HotelRoom: public Accommondations
 {
 public:
 	int getFloor() const;
