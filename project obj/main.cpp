@@ -58,15 +58,21 @@ HotelRoom addhotelroom(int floors);
 Cabin createCabin(int NumberOfRooms);
 LuxuryLevel LuxuryNiveau(bool BBQ, bool SurroundSystem, bool breakfastService, bool cleaningService, std::string accomodationKind);
 ParcServices addparcservices();
+Customer CreateCustomer();
+Customer ChangeCustomer(std::string cust);
+Customer DeleteCustomer(std::string cust);
+Customer SearchCustomer(std::string Scustom);
+VacationParcs createVacationParc();
 
 int main() {
-	Cabin cabin;
+	createVacationParc();
+	/*Cabin cabin;
 	ParcServices parcservices;
 	parcservices = addparcservices();
 	cout << parcservices.toString();
 	cabin = createCabin(110);
 	HotelRoom hotelroom;
-	addhotelroom(6);
+	addhotelroom(6);*/
 	return 0;
 }
 
@@ -140,12 +146,6 @@ Accommondations createAccomodation() {
 
 }
 
-
-
-
-
-
-
 bool question(string q) {
 	string temp;
 	cout << q << endl;
@@ -203,7 +203,8 @@ HotelRoom addhotelroom(int floors) {
 	hotelroom.setNrBeds(nrBeds);
 	return hotelroom;
 }
-void CreateCustomer() {
+
+Customer CreateCustomer() {
 	Customer customer;
 	std::string naam, adres, email;
 
@@ -220,14 +221,17 @@ void CreateCustomer() {
 	customer.setAddress(adres);
 	customer.setMail(email);
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	return customer;
 }
-void ChangeCustomer(std::string cust) {
+
+Customer ChangeCustomer(std::string cust) {
 	Customer customer;
 	int choise;
 	std::string naam, adres, email;
 
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
-	cout << "Your are currently want to change Customer account: " << cust << endl;
+	cout << "Your are currently changing Customer account: " << cust << endl;
 	do {
 		cout << "- 1 : Change Name" << endl << "- 2 : Change address" << endl << "- 3 : Change Email" << endl << "- 0 : Stop" << endl << endl;
 		do {
@@ -259,16 +263,18 @@ void ChangeCustomer(std::string cust) {
 		}
 	} while (choise != 0);
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
-}
-void DeleteCustomer(std::string cust) {
-	Customer customer;
 
-
+	return customer;
 }
 
-void SearchCustomer() {
+Customer DeleteCustomer(std::string cust) {
 	Customer customer;
-	std::string Scustom = "Joren";
+
+	return customer;
+}
+
+Customer SearchCustomer(std::string Scustom) {
+	Customer customer;
 	int choise;
 
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
@@ -298,16 +304,15 @@ void SearchCustomer() {
 		}
 	} while (choise != 0);
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	return customer;
 }
-
-
 
 Cabin createCabin(int NumberOfRooms) {
 	Cabin temp;
 	temp.setCabin(NumberOfRooms);
 	return temp;
 }
-
 
 ParcServices addparcservices()
 {
@@ -323,7 +328,53 @@ ParcServices addparcservices()
 	return parcservices;
 }
 
+VacationParcs createVacationParc() {
+	VacationParcs VacationParc;
+	std::string name, address,VAT;
+	vector<Parcs> parc;
+	vector<Customer> customers;
 
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 
+	if (question("You want to add a new vacation parc : (yes, no) ? ")) {
+		cout << "Give the name of the new vacation parc:" << endl;
+		cin >> name;
+		cout << "Give the address of the new vacation parc:" << endl;
+		cin >> address;
+		cout << "Give the VAT nummer of the new vacation parc:" << endl;
+		cin >> VAT;
+		//cout << "Give the parcs of the new vacation parc:" << endl;
+		//cin >> parc;
+		//cout << "Give the customers of the new vacation parc:" << endl;
+		//cin >> customers;
+	}
 
+	VacationParc.setName(name);
+	VacationParc.setAddress(address);
+	VacationParc.setVAT(VAT);
+	//VacationParc.setParcs(parc);
+	//VacationParc.setCustomers(customers);
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	return VacationParc;
+}
+
+VacationParcs DeleteVacationParc() {
+
+	VacationParcs VacationParc;
+	std::string name;
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to delete a vacation parc : (yes, no) ? ")) {
+		cout << "Give the name of the vacation parc :" << endl;
+		cin >> name;
+		if (question("Are you sure you want to delete vacation parc: (yes, no) ? ")) {
+
+		}
+
+	}
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	return VacationParc;
+}
 
