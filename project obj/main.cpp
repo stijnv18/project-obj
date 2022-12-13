@@ -55,18 +55,7 @@ int main() {
 		book = booking.getID();
 		cout << book << endl;
 	}
-	accom = createAccomodation();
-	accom = editAccommodation(accom);
-
-	accom = editAccommodation(accom);
 	return 0;
-}
-
-bool question(string q) {
-	string temp;
-	cout << q << endl;
-	do { cin >> temp; } while (temp != "n" and temp != "y");
-	return temp == "y";
 }
 
 Accommondations createAccomodation() {
@@ -359,8 +348,9 @@ Customer DeleteCustomer(std::string cust) {
 
 	return customer;
 }
-void SearchCustomer() {
+Customer SearchCustomer() {
 	Customer customer;
+	string Scustom;
 	int choise;
 
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
@@ -398,9 +388,9 @@ void SearchCustomer() {
 
 
 Cabin createCabin(int NumberOfRooms) {
+	Cabin temp;
 	temp.setCabin(NumberOfRooms);
-
-
+	return temp;
 }
 
 
@@ -496,6 +486,12 @@ void changeBooking(vector<Booking>& bookings, int id) {
 			}
 
 			cout << "Enter the size of the accommodation: ";
+			cin >> size;
+			if (size < 0) {
+				cout << "Error: Size must be a positive integer." << endl;
+				return;
+			}
+
 			cout << "Does the accommodation have a bathroom with a bath (1 for yes, 0 for no)? ";
 			cin >> bathroomWithBath;
 
@@ -535,7 +531,7 @@ void changeBooking(vector<Booking>& bookings, int id) {
 			bookings[i].setSportPass(question("want new sport pass? (yes,no)"));
 			bookings[i].setBicycleRent(question("want new bicycle rent? (yes,no)"));
 			bookings[i].setSwimmingPass(question("want new swimming pass? (yes,no)"));
-			cin >> size;
+
 			break;
 		}
 	}
@@ -543,22 +539,16 @@ void changeBooking(vector<Booking>& bookings, int id) {
 		cout << "there is no suck ID" << endl;
 	}
 }
-			if (size < 0) {
+
 // Prompts the user for an action (add/delete/change) and ID number and performs the appropriate action on the bookings
 void manageBooking(vector<Booking>& bookings) {
 	cout << "What would you like to do? (add/delete/change)" << endl;
 	string action;
 	cin >> action;
-				cout << "Error: Size must be a positive integer." << endl;
+
 	cout << "Enter the ID number for the booking: ";
 	int id;
 	cin >> id;
-				return;
-			}
-
-
-
-
 
 	if (action == "add") {
 		addBooking(bookings, id);
