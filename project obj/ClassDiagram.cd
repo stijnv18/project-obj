@@ -1,63 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Accommondations">
-    <Position X="5.75" Y="0.5" Width="2" />
+  <Class Name="Accommondations" Collapsed="true">
+    <Position X="1.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>ACKAAAAAAIAAkAiBAIAAAAAQAAIoAAAAAAAAAAAACAA=</HashCode>
       <FileName>Accommondations.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Booking">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+  <Class Name="Booking" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>wAEABCABAAAEiACAAAAAAAAAEACAAIxEACAAAAAACAA=</HashCode>
+      <HashCode>wAEABCABAAQEiACAAAAAAAAAEACAAoxEAAAAAAAACAA=</HashCode>
       <FileName>booking.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Cabin">
-    <Position X="8" Y="0.5" Width="1.5" />
+  <Class Name="Cabin" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAIAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cabin.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Customer">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="Customer" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAEgAAAAAAAAAAAAAAIEAABAAAAEAgAAAAE=</HashCode>
       <FileName>Customer.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HotelRoom">
-    <Position X="13.25" Y="0.5" Width="1.5" />
+  <Class Name="HotelRoom" Collapsed="true">
+    <Position X="2.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAqgAAACAAAAAAAAAAAIAAAiACAAAAACAgAgAAAAAAA=</HashCode>
       <FileName>HotelRoom.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="LuxuryLevel">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+  <Class Name="LuxuryLevel" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAABAAAgEAABAAAAAAAAAAEAoQkAAAAQAQAA=</HashCode>
       <FileName>LuxuryLevel.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Parcs">
-    <Position X="15" Y="0.5" Width="1.5" />
+  <Class Name="Parcs" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAgAAAAAAAAAAgAAAIEAAJAAAAECoCAAAA=</HashCode>
       <FileName>Parcs.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ParcServices">
-    <Position X="11.5" Y="0.5" Width="1.5" />
+  <Class Name="ParcServices" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAEAiAEAAAAAARAJARAAAAAAARAJABACAAAAAA=</HashCode>
       <FileName>ParcServices.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="VacationParcs">
-    <Position X="4" Y="0.5" Width="1.5" />
+  <Class Name="VacationParcs" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAggAJgAIgAAAAAAAAAAAAEAIkAABAAAAEAgAAAAA=</HashCode>
       <FileName>VacationParcs.h</FileName>

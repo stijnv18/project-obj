@@ -32,8 +32,10 @@ LuxuryLevel changeLuxuryLevel(LuxuryLevel);
 Accommondations createAccomodation();
 Accommondations editAccommodation(Accommondations accommodation);
 
-void SearchCustomer(const vector<Customer>& customers, string name);
+void SearchCustomer(const vector<Customer>& customers);
 Customer CreateCustomer();
+Customer DeleteCustomer(string cust);
+Customer ChangeCustomer(string cust);
 
 bool question(string);
 
@@ -43,18 +45,9 @@ int main() {
 	{
 		manageBooking(bookings);
 		cout << bookings.size();
-	/*Cabin cabin;
-	ParcServices parcservices;
-	Accommondations accom;
-	parcservices = addparcservices();
-	cout << parcservices.toString();
-	cabin = createCabin(110);
-	HotelRoom hotelroom;
-	addhotelroom(6);*/
-	vector<Customer> customers;
-	string name = "Joren";
-	customers.push_back(CreateCustomer());
-	SearchCustomer(customers, name);
+		vector<Customer> customers;
+		customers.push_back(CreateCustomer());
+		SearchCustomer(customers);
 	} while (question("wanna put more info in me senpai? (y/n)"));
 	return 0;
 }
@@ -343,7 +336,7 @@ Customer DeleteCustomer(std::string cust) {
 
 	return customer;
 }
-void SearchCustomer(const vector<Customer>& customers, string name)
+void SearchCustomer(const vector<Customer>& customers)
 {
 	string searchname;
 	int choise;
