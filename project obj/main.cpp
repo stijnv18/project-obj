@@ -35,12 +35,10 @@ bool question(string);
 
 int main() {
 	vector<Booking> bookings;
-	for (int i = 0; i < 4; i++)
+	do
 	{
-		
 		manageBooking(bookings);
 		cout << bookings.size();
-	}
 	/*Cabin cabin;
 	ParcServices parcservices;
 	Accommondations accom;
@@ -49,12 +47,7 @@ int main() {
 	cabin = createCabin(110);
 	HotelRoom hotelroom;
 	addhotelroom(6);*/
-	for (Booking booking : bookings)
-	{
-		int book;
-		book = booking.getID();
-		cout << book << endl;
-	}
+	} while (question("wanna put more info in me senpai? (y/n)"));
 	return 0;
 }
 
