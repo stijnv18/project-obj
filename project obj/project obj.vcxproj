@@ -142,7 +142,7 @@
     <ClCompile Include="Accommondations.cpp" />
     <ClCompile Include="Booking.cpp" />
     <ClCompile Include="Cabin.cpp" />
-    <ClCompile Include="Customers.cpp" />
+    <ClCompile Include="Customer.cpp" />
     <ClCompile Include="HotelRoom.cpp" />
     <ClCompile Include="LuxuryLevel.cpp" />
     <ClCompile Include="main.cpp" />
