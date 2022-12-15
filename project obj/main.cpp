@@ -34,30 +34,22 @@ Accommondations editAccommodation(Accommondations accommodation);
 
 void SearchCustomer(const vector<Customer>& customers, string name);
 Customer CreateCustomer();
+void DeleteCustomer(vector<Customer>& customers);
+
+VacationParcs CreateVacationParc(vector<VacationParcs>& vacantionParcs);
+void EditVacationParc(vector<VacationParcs>& vacantionParcs);
+void DeleteVacationParc(vector<VacationParcs>& vacantionParcs);
 
 bool question(string);
 
+/*----------------------------------------------------------------------------*/
+
 int main() {
-	vector<Booking> bookings;
-	do
-	{
-		manageBooking(bookings);
-		cout << bookings.size();
-	/*Cabin cabin;
-	ParcServices parcservices;
-	Accommondations accom;
-	parcservices = addparcservices();
-	cout << parcservices.toString();
-	cabin = createCabin(110);
-	HotelRoom hotelroom;
-	addhotelroom(6);*/
-	vector<Customer> customers;
-	string name = "Joren";
-	customers.push_back(CreateCustomer());
-	SearchCustomer(customers, name);
-	} while (question("wanna put more info in me senpai? (y/n)"));
+
 	return 0;
 }
+
+/*----------------------------------------------------------------------------*/
 
 Accommondations createAccomodation() {
 	//add radnom id
@@ -338,10 +330,39 @@ Customer ChangeCustomer(std::string cust) {
 
 	return customer;
 }
-Customer DeleteCustomer(std::string cust) {
-	Customer customer;
+void DeleteCustomer(vector<Customer>& customers) {
 
-	return customer;
+	std::string name, Cnaam;
+	int Csize, Nsize, i;
+
+	Csize = customers.size();
+	Nsize = customers.size();
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to delete a customer: (y, n) ? ")) {
+		cout << "Give the name of the customer :" << endl;
+		cin >> name;
+		for (i = 0; i < Csize; i++)
+		{
+			Cnaam = customers[i].getName();
+			if (name.compare(Cnaam) == 0) {
+				if (question("Are you sure you want to delete a customer: (y, n) ? ")) {
+					customers.erase(customers.begin() + i);
+					Nsize = customers.size();
+				}
+				break;
+			}
+
+		}
+		if (Csize == Nsize) {
+			cout << endl << "There was no change! Maybe the customer name does not exist" << endl;
+		}
+		else {
+			cout << endl << "A customer was deleted!" << endl;
+		}
+	}
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
 }
 void SearchCustomer(const vector<Customer>& customers, string name)
 {
@@ -566,9 +587,77 @@ void manageBooking(vector<Booking>& bookings) {
 	}
 }
 
+VacationParcs CreateVacationParc(vector<VacationParcs>& vacantionParcs) {
+	VacationParcs VacationParc;
+	std::string name, address, VAT;
+	vector<Parcs> parc;
+	vector<Customer> customers;
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to add a new vacation parc : (y,n) ? ")) {
+
+		cout << "Give the name of the new vacation parc:" << endl;
+		cin >> name;
+		cout << "Give the address of the new vacation parc:" << endl;
+		cin >> address;
+		cout << "Give the VAT nummer of the new vacation parc:" << endl;
+		cin >> VAT;
+		cout << "The program has automaticly made a list for parcs:" << endl;
+		cout << "The program has automaticly made a list for customers:" << endl;
+
+	}
+
+	VacationParc.setName(name);
+	VacationParc.setAddress(address);
+	VacationParc.setVAT(VAT);
+	VacationParc.setParcs(parc);
+	VacationParc.setCustomers(customers);
+
+	vacantionParcs.push_back(VacationParc);
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	return VacationParc;
+}
+void EditVacationParc(vector<VacationParcs>& vacantionParcs) {
+}
+void DeleteVacationParc(vector<VacationParcs>& vacantionParcs) {
+
+	std::string name, VPnaam;
+	int Vsize,Nsize,i;
+
+	Vsize = vacantionParcs.size();
+	Nsize = vacantionParcs.size();
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to delete a vacation parc : (y, n) ? ")) {
+		cout << "Give the name of the vacation parc :" << endl;
+		cin >> name;
+		for (i = 0; i < Vsize; i++)
+		{
+			VPnaam = vacantionParcs[i].getName();
+			if (name.compare(VPnaam) == 0) {
+				if (question("Are you sure you want to delete the vacation parc: (y, n) ? ")) {
+					vacantionParcs.erase(vacantionParcs.begin() + i);
+					Nsize = vacantionParcs.size();
+				}
+				break;
+			}
+
+		}
+		if (Vsize == Nsize) {
+			cout << endl << "There was no change! Maybe the vacation parc name does not exist" << endl;
+		}
+		else {
+			cout << endl << "A Vacation parc was deleted!" << endl;
+		}
+	}
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+}
+
 bool question(string q) {
 	string temp;
 	cout << q << endl;
 	do { cin >> temp; } while (temp != "n" and temp != "y");
-	return temp == "yes";
+	return temp == "y";
 }
