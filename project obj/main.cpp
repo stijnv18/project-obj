@@ -12,6 +12,7 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
+
 using namespace std;
 
 
@@ -31,8 +32,9 @@ LuxuryLevel changeLuxuryLevel(LuxuryLevel);
 
 Accommondations createAccomodation();
 Accommondations editAccommodation(Accommondations accommodation);
+void SearchAccommodation(vector<Accommondations>& Accommondations);
 
-void SearchCustomer(const vector<Customer>& customers, string name);
+void SearchCustomer( vector<Customer>& customers, string name);
 Customer CreateCustomer();
 void DeleteCustomer(vector<Customer>& customers);
 
@@ -185,9 +187,9 @@ int main() {
 	HotelRoom hotelroom;
 	addhotelroom(6);*/
 	vector<Customer> customers;
-	string name = "Joren";
-	customers.push_back(CreateCustomer());
-	SearchCustomer(customers, name);
+	//string name = "Joren";
+	//customers.push_back(CreateCustomer());
+	//SearchCustomer(customers, name);
 	} while (question("wanna put more info in me senpai? (y/n)"));
 
 	return 0;
@@ -305,6 +307,61 @@ Accommondations editAccommodation(Accommondations accommodation) {
 
 	return accommodation;
 }
+void SearchAccommodation(vector<Accommondations>& Listaccomodations)
+{
+	int searchId;
+	int choise;
+	char askcreate;
+	int i = 0;
+	cout << "What's the ID you're looking for? : " << endl;
+	cin >> searchId;
+
+	for (Accommondations Accom : Listaccomodations)
+	{
+		i++;
+		if (Accom.getID() == searchId)
+		{
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+			do {
+				cout << "Would you like to Change or Delete this Accomondation? : " << endl << endl;
+				cout << "- 1 : Change Accomondation" << endl << "- 2 : Delete Accomondation" << endl << "- 0 : Stop" << endl << endl;
+				do {
+					cout << "Choise: ";
+					cin >> choise;
+				} while (choise < 0 or choise > 4);
+
+				if (choise == 1) {
+					editAccommodation(Accom);
+					cout << endl << "Accomondation has been changed!" << endl;
+					cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+				}
+				if (choise == 2) {
+
+					Listaccomodations.erase(Listaccomodations.begin() + i);
+					cout << endl << "Accomondation has been deleted!" << endl;
+					break;
+				}
+			} while (choise != 0);
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+		else
+		{
+			cout << "Couldn't find a Accomondation with the given id!" << endl;
+		}
+	}
+	askcreate = question("Would you like to create a new Accomondation?  (y/n) :");
+	if (askcreate)
+	{
+		createAccomodation();
+		cout << endl << "Accomondation has been created!" << endl;
+		cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	}
+	else
+	{
+		return;
+	}
+
+};
 
 LuxuryLevel createLuxury()
 {
@@ -508,7 +565,7 @@ void DeleteCustomer(vector<Customer>& customers) {
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 
 }
-void SearchCustomer(const vector<Customer>& customers, string name)
+void SearchCustomer(vector<Customer>& customers, string name)
 {
 	string searchname;
 	int choise;
@@ -535,7 +592,7 @@ void SearchCustomer(const vector<Customer>& customers, string name)
 					cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 				}
 				if (choise == 2) {
-					DeleteCustomer(searchname);
+					DeleteCustomer(customers);
 					cout << endl << "Customer has been deleted!" << endl;
 					break;
 				}
