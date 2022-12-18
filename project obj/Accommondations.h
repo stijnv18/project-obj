@@ -1,5 +1,7 @@
 #pragma once
 #include "LuxuryLevel.h"
+#include <fstream>
+#include <iostream>
 class Accommondations {
 public:
 	int getID()const;
@@ -12,6 +14,10 @@ public:
 	void setBathroomWithBath(bool bathroomWithBathState);
 	LuxuryLevel getLuxuryLevel()const;
 	void setLuxuryLevel(LuxuryLevel luxuryLevelSet);
+	friend std::ostream& operator<<(std::ostream& out, const Accommondations& obj) {
+		out << obj.ID << ',' << obj.nrPeople << ',' << obj.size << ',' << obj.bathroomWithBath<< '{' << obj.luxuryLevel<<'}';
+		return out;
+	}
 private:
 	int ID;
 	int nrPeople;

@@ -12,13 +12,13 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
-
+#include <fstream>
 using namespace std;
 
 
-HotelRoom addhotelroom(int floors);
+HotelRoom* addhotelroom(int floors);
 
-Cabin createCabin(int NumberOfRooms);
+Cabin* createCabin(int NumberOfRooms);
 
 ParcServices addparcservices();
 
@@ -30,7 +30,7 @@ void addBooking(vector<Booking>& bookings, int id);
 LuxuryLevel createLuxury();
 LuxuryLevel changeLuxuryLevel(LuxuryLevel);
 
-Accommondations createAccomodation();
+void createAccomodation(vector<Accommondations*>& accommodations);
 Accommondations editAccommodation(Accommondations accommodation);
 void SearchAccommodation(vector<Accommondations>& Accommondations);
 
@@ -44,11 +44,16 @@ void DeleteVacationParc(vector<VacationParcs>& vacantionParcs);
 
 bool question(string);
 
+void writeCustomers(vector<Customer>& cust);
+vector<Customer> ReadCustomrs();
+
+void writeAccomondation(vector<Accommondations>& accom);
+
 /*----------------------------------------------------------------------------*/
 
 int main() {
 	char perms;
-	int quit = 0;
+	int quit = 1;
 	int keuze;
 	int parkkeuze;
 	int accomodationkeuze;
@@ -174,10 +179,12 @@ int main() {
 	} while (!quit);
 
 	vector<Booking> bookings;
+	vector<Customer> customers;
+	vector<Accommondations*> accom;
 	do
 	{
-		manageBooking(bookings);
-		cout << bookings.size();
+		//manageBooking(bookings);
+		//cout << bookings.size();
 	/*Cabin cabin;
 	ParcServices parcservices;
 	Accommondations accom;
@@ -186,10 +193,80 @@ int main() {
 	cabin = createCabin(110);
 	HotelRoom hotelroom;
 	addhotelroom(6);*/
-	vector<Customer> customers;
+	
 	//string name = "Joren";
+	// 
 	//customers.push_back(CreateCustomer());
+	//customers = ReadCustomrs();
+	//for (Customer cust : customers)
+	//{
+	//	cout << cust.getName();
+	//}
+		//createAccomodation(accom);
+		
+		//writeAccomondation(accom);
+
 	//SearchCustomer(customers, name);
+
+		int cabinOrHotelroom;
+		int numberOfPeople;
+		int temp;
+		bool bath;
+		int size;
+		int ID;
+		int maxNumberOfFloors;
+		LuxuryLevel LevelOfluxury;
+		Cabin* cabin = new Cabin();
+		HotelRoom* hotelroom = new HotelRoom();
+		cout << "Do you want a hotel room(1) or cabin(2): " << endl;
+		do
+		{
+			cin >> cabinOrHotelroom;
+		} while (cabinOrHotelroom > 2 or cabinOrHotelroom < 1);
+		if (cabinOrHotelroom == 1) {
+			cout << "what is the max number of floors:" << endl;
+			cin >> maxNumberOfFloors;
+			hotelroom = addhotelroom(maxNumberOfFloors);
+			hotelroom->setBathroomWithBath(question("does it have a bath? (y, n)"));
+		}
+
+		else if (cabinOrHotelroom == 2) {
+			int numberOfRooms;
+			cout << "What are the number of rooms: " << endl;
+			cin >> numberOfRooms;
+			cabin = createCabin(numberOfRooms);
+			cabin->setBathroomWithBath(question("does it have a bath? (y, n)"));
+		}
+
+
+		cout << "What are the number of people: " << endl;
+		cin >> numberOfPeople;
+
+
+
+		cout << "What is the size: " << endl;
+		cin >> size;
+
+		LevelOfluxury = createLuxury();
+		if (cabinOrHotelroom == 2)
+		{
+			cabin->setNrPeople(numberOfPeople);
+			cabin->setSize(size);
+			cabin->setLuxuryLevel(LevelOfluxury);
+			accom.push_back(cabin);
+		}
+		else
+		{
+			hotelroom->setNrPeople(numberOfPeople);
+			hotelroom->setSize(size);
+			hotelroom->setLuxuryLevel(LevelOfluxury);
+			accom.push_back(hotelroom);
+
+		}
+
+
+
+
 	} while (question("wanna put more info in me senpai? (y/n)"));
 
 	return 0;
@@ -197,7 +274,36 @@ int main() {
 
 /*----------------------------------------------------------------------------*/
 
-Accommondations createAccomodation() {
+void writeCustomers(vector<Customer>& cust){
+	ofstream output_file("Customers.txt");
+	for (Customer x : cust) {
+		output_file << x << '\n';
+	}
+
+}
+
+vector<Customer> ReadCustomrs() {
+	ifstream input_file("Customers.txt");
+	vector<Customer> cust;
+	Customer customer;
+	while (input_file >> customer) {
+		cust.push_back(customer);
+	}
+	return cust;
+}
+
+
+void writeAccomondation(vector<Accommondations>& accom) {
+	ofstream output_file("Accomondation.txt");
+	
+	for (const auto& accommondation : accom) {
+		output_file << accommondation << std::endl;
+	}
+}
+
+
+
+void createAccomodation(vector<Accommondations*>& accommodations) {
 	//add radnom id
 	int cabinOrHotelroom;
 	int numberOfPeople;
@@ -207,8 +313,8 @@ Accommondations createAccomodation() {
 	int ID;
 	int maxNumberOfFloors;
 	LuxuryLevel LevelOfluxury;
-	Cabin cabin;
-	HotelRoom hotelroom;
+	Cabin*cabin = new Cabin();
+	HotelRoom* hotelroom = new HotelRoom();
 	cout << "Do you want a hotel room(1) or cabin(2): " << endl;
 	do
 	{
@@ -218,6 +324,7 @@ Accommondations createAccomodation() {
 		cout << "what is the max number of floors:" << endl;
 		cin >> maxNumberOfFloors;
 		 hotelroom = addhotelroom(maxNumberOfFloors);
+		 hotelroom -> setBathroomWithBath(question("does it have a bath? (y, n)"));
 	}
 
 	else if (cabinOrHotelroom == 2) {
@@ -225,13 +332,14 @@ Accommondations createAccomodation() {
 		cout << "What are the number of rooms: " << endl;
 		cin >> numberOfRooms;
 		 cabin = createCabin(numberOfRooms);
+		 cabin->setBathroomWithBath(question("does it have a bath? (y, n)"));
 	}
 
 
 	cout << "What are the number of people: " << endl;
 	cin >> numberOfPeople;
 
-	cabin.setBathroomWithBath(question("does it have a bath? (y, n)"));
+	
 
 	cout << "What is the size: " << endl;
 	cin >> size;
@@ -239,17 +347,18 @@ Accommondations createAccomodation() {
 	LevelOfluxury = createLuxury();
 	if (cabinOrHotelroom==2)
 	{
-		cabin.setNrPeople(numberOfPeople);
-		cabin.setSize(size);
-		cabin.setLuxuryLevel(LevelOfluxury);
-		return cabin;
+		cabin->setNrPeople(numberOfPeople);
+		cabin->setSize(size);
+		cabin->setLuxuryLevel(LevelOfluxury);
+		accommodations.push_back(cabin);
 	}
 	else
 	{
-	hotelroom.setNrPeople(numberOfPeople);
-	hotelroom.setSize(size);
-	hotelroom.setLuxuryLevel(LevelOfluxury);
-	return hotelroom;
+	hotelroom->setNrPeople(numberOfPeople);
+	hotelroom->setSize(size);
+	hotelroom->setLuxuryLevel(LevelOfluxury);
+	accommodations.push_back(hotelroom);
+
 	}
 
 }
@@ -352,7 +461,7 @@ void SearchAccommodation(vector<Accommondations>& Listaccomodations)
 	askcreate = question("Would you like to create a new Accomondation?  (y/n) :");
 	if (askcreate)
 	{
-		createAccomodation();
+		//createAccomodation();
 		cout << endl << "Accomondation has been created!" << endl;
 		cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 	}
@@ -431,8 +540,8 @@ LuxuryLevel changeLuxuryLevel(LuxuryLevel LL) {
 	return LL;
 }
 
-HotelRoom addhotelroom(int floors) {
-	HotelRoom hotelroom;
+HotelRoom* addhotelroom(int floors) {
+	HotelRoom* hotelroom = new HotelRoom();
 	int floor = -1;
 	string location;
 	int nrBeds = -1;
@@ -463,10 +572,10 @@ HotelRoom addhotelroom(int floors) {
 			cin.ignore(123, '\n');
 		}
 	}
-	hotelroom.setChildrenBeds(question("children bed in room (y, n):"));
-	hotelroom.setFloor(floor);
-	hotelroom.setLocation(location);
-	hotelroom.setNrBeds(nrBeds);
+	hotelroom->setChildrenBeds(question("children bed in room (y, n):"));
+	hotelroom->setFloor(floor);
+	hotelroom->setLocation(location);
+	hotelroom->setNrBeds(nrBeds);
 	return hotelroom;
 }
 
@@ -618,9 +727,9 @@ void SearchCustomer(vector<Customer>& customers, string name)
 
 };
 
-Cabin createCabin(int NumberOfRooms) {
-	Cabin temp;
-	temp.setCabin(NumberOfRooms);
+Cabin* createCabin(int NumberOfRooms) {
+	Cabin* temp = new Cabin();
+	temp->setCabin(NumberOfRooms);
 	return temp;
 }
 

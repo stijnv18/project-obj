@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include <fstream>
 class LuxuryLevel
 {
 public:
@@ -24,6 +24,10 @@ public:
     std::string getAccommodationKind() const;
     //function 8 SET accommodationKind
     void setAccommodationKind(std::string LLaccommodationKind);
+    friend std::ostream& operator<<(std::ostream& out, const LuxuryLevel& obj) {
+        out << obj.BBQ << ',' << obj.surroundSystem << ',' << obj.breakfastService << ',' << obj.cleaningService << ',' << obj.accommodationKind;
+        return out;
+    }
 private:
     bool BBQ;
     bool surroundSystem;
