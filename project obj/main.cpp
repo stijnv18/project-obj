@@ -75,19 +75,33 @@ vector<Parcs> ReadParc();
 
 
 int main() {
+	vector<VacationParcs> vp;
+	vector <Parcs> p;
+	Customer c;
+	vector <Customer> cvec;
+	Accommondations a;
+	vector<Accommondations> avec;
+	vector<Booking> bkvec;
+	string ScustomerName;
+
 	char perms;
 	int quit = 0;
 	int keuze;
 	int parkkeuze;
 	int accomodationkeuze;
+	int id;
+
+	CreateVacationParc(vp);
+	printvp(vp);
+
 	do
 	{
 		cout << "Are you a customer, an employee or the owner?" << endl;
 		do
 		{
-			cout << "C - customer" << endl;
-			cout << "E - employee" << endl;
-			cout << "O - owner" << endl;
+			cout << "c - customer" << endl;
+			cout << "e - employee" << endl;
+			cout << "o - owner" << endl;
 			cin >> perms;
 		} while ((perms != 'o') and (perms != 'e') and (perms != 'c'));
 		cout << "What would you like to do?" << endl;
@@ -97,10 +111,11 @@ int main() {
 			cout << "(1) Manage parks" << endl;
 			cout << "(2) Manage accomodations" << endl;
 			cout << "(3) Manage vacationparks" << endl;
+			cout << "(4) Print Vacationparks, Parks, Customers" << endl;
 			cout << "(0) quit" << endl;
 			do
 			{
-				cout << "1, 2, 3 or 0 : ";
+				cout << "1, 2, 3, 4 or 0 : ";
 				cin >> keuze;
 				switch (keuze)
 				{
@@ -119,10 +134,18 @@ int main() {
 						switch (keuze)
 						{
 						case 1:
+							CreateParc(p);			//CREEREN van parc
+							vp[0].setParcs(p);		//Park vector TOEVOEGEN of OVERSCHIJVEN aan vacantieparc
 							break;
 						case 2:
+							ChangeParc(p);			//CHANGE van parc
+							vp[0].setParcs(p);		//Park vector TOEVOEGEN of OVERSCHIJVEN aan vacantieparc
 							break;
 						case 3:
+							DeleteParc(p);			//DELETE van parc
+							vp[0].setParcs(p);		//Park vector TOEVOEGEN of OVERSCHIJVEN aan vacantieparc
+							break;
+						case 0:
 							break;
 						default:
 							break;
@@ -144,10 +167,15 @@ int main() {
 						switch (keuze)
 						{
 						case 1:
+							a = createAccomodation();
 							break;
 						case 2:
+							editAccommodation(a);
 							break;
 						case 3:
+							SearchAccommodation(avec);
+							break;
+						case 0:
 							break;
 						default:
 							break;
@@ -169,20 +197,32 @@ int main() {
 						switch (keuze)
 						{
 						case 1:
+							CreateVacationParc(vp);
 							break;
 						case 2:
+							ChangeVacationParc(vp);
 							break;
 						case 3:
+							DeleteVacationParc(vp);
+							break;
+						case 0:
 							break;
 						default:
 							break;
 						}
 					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
+				case 4:
+					cout << "You chose the option : Print Vacationparks, Parks, Customers" << endl;
+					printvp(vp);
+					printparc(vp);
+					printcustomers(vp);
 				case 0:
+					break;
 				default:
 					break;
 				}
-			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
+			} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 4) and (keuze != 0));
+			break;
 		case 'e':
 			cout << "(1) Manage customers" << endl;
 			cout << "(2) Manage accomodations" << endl;
@@ -195,28 +235,8 @@ int main() {
 				{
 				case 1:
 					cout << "You chose the option : Manage customer" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create customer acccount" << endl;
-					cout << "(2) Change customer account" << endl;
-					cout << "(3) Delete customer account" << endl;
-					cout << "(0) quit" << endl;
-					do
-					{
-						cout << "1, 2,3 or 0 : ";
-						cin >> keuze;
-						switch (keuze)
-						{
-						case 1:
-							break;
-						case 2:
-							break;
-						case 3:
-							break;
-						default:
-							break;
-						}
-					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
+					SearchCustomer(cvec);		// SEARCH Customer
+					vp[0].setCustomers(cvec);	// Verandering toevoegen aan customers
 					break;
 				case 2:
 					cout << "You chose the option : Manage accomodation" << endl;
@@ -233,10 +253,15 @@ int main() {
 						switch (keuze)
 						{
 						case 1:
+							a = createAccomodation();
 							break;
 						case 2:
+							editAccommodation(a);
 							break;
 						case 3:
+							SearchAccommodation(avec);
+							break;
+						case 0:
 							break;
 						default:
 							break;
@@ -258,10 +283,21 @@ int main() {
 						switch (keuze)
 						{
 						case 1:
+							cout << "give id: " << endl;
+							cin >> id;
+							addBooking(bkvec, id);
 							break;
 						case 2:
+							cout << "give id: " << endl;
+							cin >> id;
+							changeBooking(bkvec, id);
 							break;
 						case 3:
+							cout << "give id: " << endl;
+							cin >> id;
+							deleteBooking(bkvec, id);
+							break;
+						case 0:
 							break;
 						default:
 							break;
@@ -269,10 +305,12 @@ int main() {
 					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
 					break;
 				case 0:
+					break;
 				default:
 					break;
 					}
-				} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
+			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
+			break;
 		case 'c':
 			cout << "(1) Manage your account" << endl;
 			cout << "(2) Manage your bookings" << endl;
@@ -297,8 +335,14 @@ int main() {
 						switch (keuze)
 						{
 						case 1:
+							SearchCustomer(cvec);		// SEARCH Customer
+							vp[0].setCustomers(cvec);	// Verandering toevoegen aan customers
 							break;
 						case 2:
+							SearchCustomer(cvec);		// SEARCH Customer
+							vp[0].setCustomers(cvec);	// Verandering toevoegen aan customers
+							break;
+						case 0:
 							break;
 						default:
 							break;
@@ -319,8 +363,14 @@ int main() {
 						switch (keuze)
 						{
 						case 1:
+							cout << "give id: " << endl;
+							cin >> id;
+							addBooking(bkvec, id);
 							break;
 						case 2:
+							cout << "give id: " << endl;
+							cin >> id;
+							changeBooking(bkvec, id);
 							break;
 						case 0:
 							break;
@@ -331,6 +381,7 @@ int main() {
 					break;
 				}
 			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
+			break;
 			}
 		} while (!quit);
 	}
@@ -811,7 +862,7 @@ void DeleteCustomer(vector<Customer>& customers) {
 
 }
 void SearchCustomer(vector<Customer>& customers)
-{	
+{
 	Customer c;
 	string searchname;
 	int choise;
@@ -864,60 +915,7 @@ void SearchCustomer(vector<Customer>& customers)
 		return;
 	}
 
-};
-//void SearchCustomer(vector<Customer>& customers, string name)
-//{
-//	string searchname;
-//	int choise;
-//	char askcreate;
-//	cout << "What's the first name of the customer you're looking for? : " << endl;
-//	cin.ignore();
-//	getline(cin, searchname);
-//
-//	for (Customer customer : customers)
-//	{
-//		if (customer.getName() == searchname)
-//		{
-//			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
-//			do {
-//				cout << "Would you like to Change or Delete this customer? : " << endl << endl;
-//				cout << "- 1 : Change customer" << endl << "- 2 : Delete customer" << endl << "- 0 : Stop" << endl << endl;
-//				do {
-//					cout << "Choise: ";
-//					cin >> choise;
-//				} while (choise < 0 or choise > 4);
-//
-//				if (choise == 1) {
-//					ChangeCustomer(searchname);
-//					cout << endl << "Customer has been changed!" << endl;
-//					cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
-//				}
-//				if (choise == 2) {
-//					DeleteCustomer(customers);
-//					cout << endl << "Customer has been deleted!" << endl;
-//					break;
-//				}
-//			} while (choise != 0);
-//			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
-//		}
-//		else
-//		{
-//			cout << "Couldn't find a customer with the given name!" << endl;
-//		}
-//	}
-//	askcreate = question("Would you like to create a new customer?  (y/n) :");
-//	if (askcreate)
-//	{
-//		CreateCustomer();
-//		cout << endl << "Customer has been created!" << endl;
-//		cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
-//	}
-//	else
-//	{
-//		return;
-//	}
-//
-//};
+}
 
 Cabin createCabin(int NumberOfRooms) {
 	Cabin temp;
