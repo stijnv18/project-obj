@@ -72,6 +72,7 @@ vector<Parcs> ReadParc();
 
 /*----------------------------------------------------------------------------*/
 
+
 int main() {
 	char perms;
 	int quit = 0;
@@ -94,10 +95,11 @@ int main() {
 		case 'o':
 			cout << "(1) Manage parks" << endl;
 			cout << "(2) Manage accomodations" << endl;
+			cout << "(3) Manage vacationparks" << endl;
 			cout << "(0) quit" << endl;
 			do
 			{
-				cout << "1, 2 or 0 : ";
+				cout << "1, 2, 3 or 0 : ";
 				cin >> keuze;
 				switch (keuze)
 				{
@@ -108,7 +110,23 @@ int main() {
 					cout << "(1) Create new park" << endl;
 					cout << "(2) Change park" << endl;
 					cout << "(3) Delete park" << endl;
-					cin >> parkkeuze;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2 ,3 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						default:
+							break;
+						}
+					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
 					break;
 				case 2:
 					cout << "You chose the option : Manage accomodations" << endl;
@@ -117,8 +135,48 @@ int main() {
 					cout << "(1) Create accomodation" << endl;
 					cout << "(2) Change accomodation" << endl;
 					cout << "(3) Delete accomodation" << endl;
-					cin >> accomodationkeuze;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2, 3 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						default:
+							break;
+						}
+					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
 					break;
+				case 3:
+					cout << "You chose the option : Manage vacationpark" << endl;
+					cout << "What would you like to do?" << endl;
+					cout << "--------------------------" << endl;
+					cout << "(1) Create vacationpark" << endl;
+					cout << "(2) Change vacationpark" << endl;
+					cout << "(3) Delete vacationpark" << endl;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2 ,3 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						default:
+							break;
+						}
+					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
 				case 0:
 				default:
 					break;
@@ -129,8 +187,7 @@ int main() {
 			cout << "(2) Manage accomodations" << endl;
 			cout << "(3) Manage bookings" << endl;
 			cout << "(0) quit" << endl;
-			do
-			{
+			do {
 				cout << "1, 2, 3 or 0? : ";
 				cin >> keuze;
 				switch (keuze)
@@ -142,15 +199,49 @@ int main() {
 					cout << "(1) Create customer acccount" << endl;
 					cout << "(2) Change customer account" << endl;
 					cout << "(3) Delete customer account" << endl;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2,3 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						default:
+							break;
+						}
+					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
 					break;
-				case 2: 
+				case 2:
 					cout << "You chose the option : Manage accomodation" << endl;
 					cout << "What would you like to do?" << endl;
 					cout << "--------------------------" << endl;
 					cout << "(1) Create accomodation" << endl;
 					cout << "(2) Change accomodation" << endl;
 					cout << "(3) Delete accomodation" << endl;
-					break;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2,3 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						default:
+							break;
+						}
+						} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
+						break;
 				case 3:
 					cout << "You chose the option : Manage booking" << endl;
 					cout << "What would you like to do?" << endl;
@@ -158,12 +249,29 @@ int main() {
 					cout << "(1) Create booking" << endl;
 					cout << "(2) Change booking" << endl;
 					cout << "(3) Delete booking" << endl;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2, 3 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 3:
+							break;
+						default:
+							break;
+						}
+					} while ((keuze != 1) and (keuze != 2) and (keuze != 3) and (keuze != 0));
 					break;
 				case 0:
 				default:
 					break;
-				}
-			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
+					}
+				} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
 		case 'c':
 			cout << "(1) Manage your account" << endl;
 			cout << "(2) Manage your bookings" << endl;
@@ -180,6 +288,21 @@ int main() {
 					cout << "--------------------------" << endl;
 					cout << "(1) Create new customer account" << endl;
 					cout << "(2) Change customer account" << endl;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						default:
+							break;
+						}
+					} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
 					break;
 				case 2:
 					cout << "You chose the option : Manage your bookings" << endl;
@@ -187,28 +310,31 @@ int main() {
 					cout << "--------------------------" << endl;
 					cout << "(1) Create new booking" << endl;
 					cout << "(2) Edit booking" << endl;
+					cout << "(0) quit" << endl;
+					do
+					{
+						cout << "1, 2 or 0 : ";
+						cin >> keuze;
+						switch (keuze)
+						{
+						case 1:
+							break;
+						case 2:
+							break;
+						case 0:
+							break;
+						}
+					} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
 					break;
 				case 0:
-				default:
 					break;
 				}
-
 			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
-		
-		}
-	} while (!quit);
+			}
+		} while (!quit);
+	}
 
-	vector<Booking> bookings;
-	do
-	{
-		manageBooking(bookings);
-		cout << bookings.size();
-		vector<Customer> customers;
-		customers.push_back(CreateCustomer());
-		SearchCustomer(customers, "something");
-	} while (question("wanna put more info in me senpai? (y/n)"));
-	return 0;
-}
+
 
 /*----------------------------------------------------------------------------*/
 
