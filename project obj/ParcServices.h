@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <fstream>
+#include <iostream>
 class ParcServices
 {
 public:
@@ -28,6 +30,31 @@ public:
     bool getWaterBikes() const;
     //function 12 SET waterBikes
     void setWaterBikes(bool PSwaterBikes);
+
+    friend std::ostream& operator<<(std::ostream& os, const ParcServices& services)
+    {
+        os << services.subtropicSwimmingPool << ',';
+        os << services.sportsInfrastructure << ',';
+        os << services.bowlingAlley << ',';
+        os << services.bicycleRent << ',';
+        os << services.childerensParadise << ',';
+        os  << services.waterBikes;
+        return os;
+    }
+
+    // Overload the >> operator for ParcServices
+    friend std::istream& operator>>(std::istream& is, ParcServices& services)
+    {
+        std::string input;
+        is >> input; services.subtropicSwimmingPool = (input == "true");
+        is >> input; services.sportsInfrastructure = (input == "true");
+        is >> input; services.bowlingAlley = (input == "true");
+        is >> input; services.bicycleRent = (input == "true");
+        is >> input; services.childerensParadise = (input == "true");
+        is >> input; services.waterBikes = (input == "true");
+        return is;
+    }
+
 private:
     bool subtropicSwimmingPool;
     bool sportsInfrastructure;
