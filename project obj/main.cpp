@@ -37,12 +37,9 @@ Accommondations createAccomodation();
 Accommondations editAccommodation(Accommondations accommodation);
 void SearchAccommodation(vector<Accommondations>& Accommondations);
 
-void SearchCustomer(const vector<Customer>& customers);
 Customer CreateCustomer();
-Customer DeleteCustomer(string cust);
-Customer ChangeCustomer(string cust);
-void SearchCustomer( vector<Customer>& customers, string name);
-Customer CreateCustomer();
+Customer ChangeCustomer(vector<Customer>& customers, string cust);
+void SearchCustomer(vector<Customer>& customers);
 void DeleteCustomer(vector<Customer>& customers);
 
 Parcs CreateParc(vector<Parcs>& Parc);
@@ -54,144 +51,14 @@ void ChangeVacationParc(vector<VacationParcs>& vacantionParcs);
 void DeleteVacationParc(vector<VacationParcs>& vacantionParcs);
 
 bool question(string);
+void printvp(vector<VacationParcs>& vacantionParcs);
+void printparc(vector<VacationParcs>& vacantionParcs);
+void printcustomers(vector<VacationParcs>& vacantionParcs);
 
 /*----------------------------------------------------------------------------*/
 
 int main() {
-	char perms;
-	int quit = 0;
-	int keuze;
-	int parkkeuze;
-	int accomodationkeuze;
-	do
-	{
-		cout << "Are you a customer, an employee or the owner?" << endl;
-		do
-		{
-			cout << "C - customer" << endl;
-			cout << "E - employee" << endl;
-			cout << "O - owner" << endl;
-			cin >> perms;
-		} while ((perms != 'o') and (perms != 'e') and (perms != 'c'));
-		cout << "What would you like to do?" << endl;
-		switch (perms)
-		{
-		case 'o':
-			cout << "(1) Manage parks" << endl;
-			cout << "(2) Manage accomodations" << endl;
-			cout << "(0) quit" << endl;
-			do
-			{
-				cout << "1, 2 or 0 : ";
-				cin >> keuze;
-				switch (keuze)
-				{
-				case 1:
-					cout << "You chose the option : Manage parks" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create new park" << endl;
-					cout << "(2) Change park" << endl;
-					cout << "(3) Delete park" << endl;
-					cin >> parkkeuze;
-					break;
-				case 2:
-					cout << "You chose the option : Manage accomodations" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create accomodation" << endl;
-					cout << "(2) Change accomodation" << endl;
-					cout << "(3) Delete accomodation" << endl;
-					cin >> accomodationkeuze;
-					break;
-				case 0:
-				default:
-					break;
-				}
-			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
-		case 'e':
-			cout << "(1) Manage customers" << endl;
-			cout << "(2) Manage accomodations" << endl;
-			cout << "(3) Manage bookings" << endl;
-			cout << "(0) quit" << endl;
-			do
-			{
-				cout << "1, 2, 3 or 0? : ";
-				cin >> keuze;
-				switch (keuze)
-				{
-				case 1:
-					cout << "You chose the option : Manage customer" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create customer acccount" << endl;
-					cout << "(2) Change customer account" << endl;
-					cout << "(3) Delete customer account" << endl;
-					break;
-				case 2: 
-					cout << "You chose the option : Manage accomodation" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create accomodation" << endl;
-					cout << "(2) Change accomodation" << endl;
-					cout << "(3) Delete accomodation" << endl;
-					break;
-				case 3:
-					cout << "You chose the option : Manage booking" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create booking" << endl;
-					cout << "(2) Change booking" << endl;
-					cout << "(3) Delete booking" << endl;
-					break;
-				case 0:
-				default:
-					break;
-				}
-			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
-		case 'c':
-			cout << "(1) Manage your account" << endl;
-			cout << "(2) Manage your bookings" << endl;
-			cout << "(0) quit" << endl;
-			do
-			{
-				cout << "1, 2 or 0? : ";
-				cin >> keuze;
-				switch (keuze)
-				{
-				case 1:
-					cout << "You chose the option : Manage your account" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create new customer account" << endl;
-					cout << "(2) Change customer account" << endl;
-					break;
-				case 2:
-					cout << "You chose the option : Manage your bookings" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create new booking" << endl;
-					cout << "(2) Edit booking" << endl;
-					break;
-				case 0:
-				default:
-					break;
-				}
 
-			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
-		
-		}
-	} while (!quit);
-
-	vector<Booking> bookings;
-	do
-	{
-		manageBooking(bookings);
-		cout << bookings.size();
-		vector<Customer> customers;
-		customers.push_back(CreateCustomer());
-		SearchCustomer(customers);
-	} while (question("wanna put more info in me senpai? (y/n)"));
 	return 0;
 }
 
@@ -477,15 +344,12 @@ Customer CreateCustomer() {
 
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 	cout << "You want to create a customer account:" << endl << endl;
-	cout << endl << "What is your name: ";
-	cin.ignore();
-	getline(cin, naam);
-	cout << endl <<  "What is your address: ";
-	cin.ignore();
-	getline(cin, adres);
-	cout << endl << "What is your email address: ";
-	cin.ignore();
-	getline(cin, email);
+	cout << endl << "What is your name: " << endl;
+	cin >> naam;
+	cout << endl <<  "What is your address: " << endl;
+	cin >> adres;
+	cout << endl << "What is your email address: " << endl;
+	cin >> email;
 
 	customer.setName(naam);
 	customer.setAddress(adres);
@@ -494,10 +358,20 @@ Customer CreateCustomer() {
 
 	return customer;
 }
-Customer ChangeCustomer(std::string cust) {
+Customer ChangeCustomer(vector<Customer>& customers, std::string cust) {
 	Customer customer;
-	int choise;
-	std::string naam, adres, email;
+	int choise, Csize,plaats;
+	std::string naam, adres, email,Cnaam;
+
+	Csize = customers.size();
+	for (int i = 0; i < Csize; i++)
+	{
+		Cnaam = customers[i].getName();
+		if (cust.compare(Cnaam) == 0) {
+			plaats = i;
+			break;
+		}
+	}
 
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 	cout << "Your are currently changing Customer account: " << cust << endl;
@@ -511,25 +385,22 @@ Customer ChangeCustomer(std::string cust) {
 
 		if (choise == 1) {
 			cout << "What is the new name: ";
-			cin.ignore();
-			getline(cin, naam);
-			customer.setName(naam);
+			cin >> naam;
+			customers[plaats].setName(naam);
 			cout << "The name is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
 		if (choise == 2) {
 			cout << endl << "What is the new address: ";
-			cin.ignore();
-			getline(cin, adres);
-			customer.setAddress(adres);
+			cin >> adres;
+			customers[plaats].setAddress(adres);
 			cout << endl << "The adres is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
 		if (choise == 3) {
 			cout << "What is the new Email: ";
-			cin.ignore();
-			getline(cin, email);
-			customer.setMail(email);
+			cin>> email;
+			customers[plaats].setMail(email);
 			cout << endl << "The email is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
@@ -549,8 +420,7 @@ void DeleteCustomer(vector<Customer>& customers) {
 
 	if (question("You want to delete a customer: (y, n) ? ")) {
 		cout << "Give the name of the customer :" << endl;
-		cin.ignore();
-		getline(cin, name);
+		cin>> name;
 		for (i = 0; i < Csize; i++)
 		{
 			Cnaam = customers[i].getName();
@@ -573,14 +443,15 @@ void DeleteCustomer(vector<Customer>& customers) {
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 
 }
-void SearchCustomer(vector<Customer>& customers, string name)
-{
+void SearchCustomer(vector<Customer>& customers)
+{	
+	Customer c;
 	string searchname;
 	int choise;
 	char askcreate;
+
 	cout << "What's the first name of the customer you're looking for? : " << endl;
-	cin.ignore();
-	getline(cin, searchname);
+	cin >> searchname;
 
 	for (Customer customer : customers)
 	{
@@ -596,7 +467,7 @@ void SearchCustomer(vector<Customer>& customers, string name)
 				} while (choise < 0 or choise > 4);
 
 				if (choise == 1) {
-					ChangeCustomer(searchname);
+					ChangeCustomer(customers, searchname);
 					cout << endl << "Customer has been changed!" << endl;
 					cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 				}
@@ -616,7 +487,8 @@ void SearchCustomer(vector<Customer>& customers, string name)
 	askcreate = question("Would you like to create a new customer?  (y/n) :");
 	if (askcreate)
 	{
-		CreateCustomer();
+		c = CreateCustomer();
+		customers.push_back(c);
 		cout << endl << "Customer has been created!" << endl;
 		cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 	}
@@ -855,11 +727,9 @@ Parcs CreateParc(vector<Parcs>& Parc) {
 	if (question("You want to add a new parc : (y,n) ? ")) {
 
 		cout << "Give the name of the new parc: " << endl;
-		cin.ignore();
-		getline(cin, name);
+		cin >> name;
 		cout << "Give the address of the new parc:" << endl;
-		cin.ignore();
-		getline(cin, address);
+		cin >> address;
 		cout << "Give the services of the parc:" << endl;
 		ParcService = addparcservices();
 		cout << "The program has automaticly made a list for Accommondation:" << endl;
@@ -908,16 +778,14 @@ void ChangeParc(vector<Parcs>& Parcs) {
 
 		if (choise == 1) {
 			cout << "What is the new name: ";
-			cin.ignore();
-			getline(cin, name);
+			cin >> name;
 			Parcs[Pchoise].setName(name);
 			cout << "The name is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
 		if (choise == 2) {
 			cout << endl << "What is the new address: ";
-			cin.ignore();
-			getline(cin, address);
+			cin >> address;
 			Parcs[Pchoise].setAddress(address);
 			cout << endl << "The address is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
@@ -950,8 +818,8 @@ void DeleteParc(vector<Parcs>& Parc) {
 
 	if (question("You want to delete a parc : (y, n) ? ")) {
 		cout << "Give the name of the parc :" << endl;
-		cin.ignore();
-		getline(cin, name);
+
+		cin >> name;
 		for (i = 0; i < Vsize; i++)
 		{
 			Pnaam = Parc[i].getName();
@@ -1039,24 +907,21 @@ void ChangeVacationParc(vector<VacationParcs>& vacantionParcs) {
 
 		if (choise == 1) {
 			cout << "What is the new name: ";
-			cin.ignore();
-			getline(cin, name);
+			cin >> name;
 			vacantionParcs[VPchoise].setName(name);
 			cout << "The name is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
 		if (choise == 2) {
 			cout << endl << "What is the new address: ";
-			cin.ignore();
-			getline(cin, address);
+			cin >> address;
 			vacantionParcs[VPchoise].setAddress(address);
 			cout << endl << "The address is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
 		if (choise == 3) {
 			cout << "What is the new VAT: ";
-			cin.ignore();
-			getline(cin, VAT);
+			cin >> VAT;
 			vacantionParcs[VPchoise].setVAT(VAT);
 			cout << endl << "The VAT is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
@@ -1075,8 +940,7 @@ void DeleteVacationParc(vector<VacationParcs>& vacantionParcs) {
 
 	if (question("You want to delete a vacation parc : (y, n) ? ")) {
 		cout << "Give the name of the vacation parc :" << endl;
-		cin.ignore();
-		getline(cin, name);
+		cin >> name;
 		for (i = 0; i < Vsize; i++)
 		{
 			VPnaam = vacantionParcs[i].getName();
@@ -1104,4 +968,66 @@ bool question(string q) {
 	cout << q << endl;
 	do { cin >> temp; } while (temp != "n" and temp != "y");
 	return temp == "y";
+}
+
+void printvp(vector<VacationParcs>& vp) {
+	int Vsize;
+	string VPnaam;
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	Vsize = vp.size();
+	cout << "Dit zijn de vakantie parken: " << endl;
+	for (int i = 0; i < Vsize; i++)
+	{
+		VPnaam = vp[i].getName();
+		cout << VPnaam << endl;
+	}
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+}
+void printparc(vector<VacationParcs>& vacantionParcs) {
+	int Psize;
+	string VPnaam,Pnaam,Pkeuze, pc, Padres;
+	vector<Parcs> Pvec;
+
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	VPnaam = vacantionParcs[0].getName();
+	Pvec = vacantionParcs[0].getParcs();
+	Psize = vacantionParcs[0].getParcs().size();
+	cout << "Dit zijn de parken: " << endl;
+
+	for (int i = 0; i < Psize; i++)
+	{
+		Pnaam = Pvec[i].getName();
+		Padres = Pvec[i].getAddress();
+		pc = Pvec[i].getServices().toString();
+		cout << "--- Vacation park: " << VPnaam << " // Park: " << Pnaam << " ---" << endl;
+		cout << "--- Address: " << Padres << endl;
+		cout<< pc << endl;
+	}
+		cout << endl << "----------------------------------------------------------------------------" << endl;
+		cout << endl << "----------------------------------------------------------------------------" << endl;
+}
+void printcustomers(vector<VacationParcs>& vacantionParcs) {
+	int Csize;
+	string pc, Cnaam,Caddress,Cmail;
+	vector<Customer> Cvec;
+
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	Csize = vacantionParcs[0].getCustomers().size();
+	Cvec = vacantionParcs[0].getCustomers();
+	cout << "Dit zijn de Customers: " << endl;
+
+	for (int i = 0; i < Csize; i++)
+	{
+		Cnaam = Cvec[i].getName();
+		Caddress = Cvec[i].getAddress();
+		Cmail = Cvec[i].getMail();
+
+		cout << i+1 <<")" << Cnaam << " // Address: " << Caddress << " // Mail: " << Cmail << endl;
+	}
+	cout << endl << "----------------------------------------------------------------------------" << endl;
+	cout << endl << "----------------------------------------------------------------------------" << endl;
 }
