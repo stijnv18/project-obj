@@ -37,7 +37,6 @@ Accommondations createAccomodation();
 Accommondations editAccommodation(Accommondations accommodation);
 void SearchAccommodation(vector<Accommondations>& Accommondations);
 
-void SearchCustomer(const vector<Customer>& customers);
 Customer CreateCustomer();
 Customer DeleteCustomer(string cust);
 Customer ChangeCustomer(string cust);
@@ -54,6 +53,22 @@ void ChangeVacationParc(vector<VacationParcs>& vacantionParcs);
 void DeleteVacationParc(vector<VacationParcs>& vacantionParcs);
 
 bool question(string);
+
+void writeCustomers(vector<Customer>& cust);
+vector<Customer> ReadCustomrs();
+
+void writeAccomondation(vector<Accommondations>& accom);
+vector<Accommondations> ReadAccommondations();
+
+void writeBookings(vector<Booking>& book);
+vector<Booking> ReadBooking();
+
+void writeVacationParcs(vector<VacationParcs>& vacp);
+vector<VacationParcs> ReadVacationParcs();
+
+void writeparcs(vector<Parcs>& parc);
+vector<Parcs> ReadParc();
+
 
 /*----------------------------------------------------------------------------*/
 
@@ -190,12 +205,104 @@ int main() {
 		cout << bookings.size();
 		vector<Customer> customers;
 		customers.push_back(CreateCustomer());
-		SearchCustomer(customers);
+		SearchCustomer(customers, "something");
 	} while (question("wanna put more info in me senpai? (y/n)"));
 	return 0;
 }
 
 /*----------------------------------------------------------------------------*/
+
+void writeCustomers(vector<Customer>& cust) {
+	ofstream output_file("Customers.txt");
+	for (Customer x : cust) {
+		output_file << x << '\n';
+	}
+
+}
+vector<Customer> ReadCustomrs() {
+	ifstream input_file("Customers.txt");
+	vector<Customer> cust;
+	Customer customer;
+	while (input_file >> customer) {
+		cust.push_back(customer);
+	}
+	return cust;
+}
+
+void writeBookings(vector<Booking>& book)
+{
+	ofstream output_file("Booking.txt");
+
+	for (const auto& booking : book) {
+		output_file << booking << std::endl;
+	}
+}
+vector<Booking> ReadBooking()
+{
+	ifstream input_file("Accomondation.txt");
+	vector<Booking> book;
+	Booking booking;
+	while (input_file >> booking) {
+		book.push_back(booking);
+	}
+	return book;
+}
+
+void writeAccomondation(vector<Accommondations>& accom) {
+	ofstream output_file("Accomondation.txt");
+
+	for (const auto& accommondation : accom) {
+		output_file << accommondation << std::endl;
+	}
+}
+vector<Accommondations> ReadAccommonedations()
+{
+	ifstream input_file("Accomondation.txt");
+	vector<Accommondations> accom;
+	Accommondations accommondation;
+	while (input_file >> accommondation) {
+		accom.push_back(accommondation);
+	}
+	return accom;
+}
+
+void writeVacationParcs(vector<VacationParcs>& vacp)
+{
+	ofstream output_file("vacparc.txt");
+
+	for (const auto& vacationparc : vacp) {
+		output_file << vacationparc << std::endl;
+	}
+}
+vector<VacationParcs> ReadVacationParcs()
+{
+	ifstream input_file("vacparc.txt");
+	vector<VacationParcs> vacp;
+	VacationParcs vacparc;
+	while (input_file >> vacparc) {
+		vacp.push_back(vacparc);
+	}
+	return vacp;
+}
+
+void writeparcs(vector<Parcs>& parc)
+{
+	ofstream output_file("parc.txt");
+
+	for (const auto& parcs : parc) {
+		output_file << parcs << std::endl;
+	}
+}
+vector<Parcs> ReadParc()
+{
+	ifstream input_file("parc.txt");
+	vector<Parcs> parc;
+	Parcs parcs;
+	while (input_file >> parcs) {
+		parc.push_back(parcs);
+	}
+	return parc;
+}
 
 Accommondations createAccomodation() {
 	//add radnom id
@@ -626,6 +733,59 @@ void SearchCustomer(vector<Customer>& customers, string name)
 	}
 
 };
+//void SearchCustomer(vector<Customer>& customers, string name)
+//{
+//	string searchname;
+//	int choise;
+//	char askcreate;
+//	cout << "What's the first name of the customer you're looking for? : " << endl;
+//	cin.ignore();
+//	getline(cin, searchname);
+//
+//	for (Customer customer : customers)
+//	{
+//		if (customer.getName() == searchname)
+//		{
+//			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+//			do {
+//				cout << "Would you like to Change or Delete this customer? : " << endl << endl;
+//				cout << "- 1 : Change customer" << endl << "- 2 : Delete customer" << endl << "- 0 : Stop" << endl << endl;
+//				do {
+//					cout << "Choise: ";
+//					cin >> choise;
+//				} while (choise < 0 or choise > 4);
+//
+//				if (choise == 1) {
+//					ChangeCustomer(searchname);
+//					cout << endl << "Customer has been changed!" << endl;
+//					cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+//				}
+//				if (choise == 2) {
+//					DeleteCustomer(customers);
+//					cout << endl << "Customer has been deleted!" << endl;
+//					break;
+//				}
+//			} while (choise != 0);
+//			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+//		}
+//		else
+//		{
+//			cout << "Couldn't find a customer with the given name!" << endl;
+//		}
+//	}
+//	askcreate = question("Would you like to create a new customer?  (y/n) :");
+//	if (askcreate)
+//	{
+//		CreateCustomer();
+//		cout << endl << "Customer has been created!" << endl;
+//		cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+//	}
+//	else
+//	{
+//		return;
+//	}
+//
+//};
 
 Cabin createCabin(int NumberOfRooms) {
 	Cabin temp;
