@@ -12,6 +12,9 @@
 #include <string>
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
+#include <cstdlib>
+
 using namespace std;
 
 
@@ -20,6 +23,7 @@ HotelRoom addhotelroom(int floors);
 Cabin createCabin(int NumberOfRooms);
 
 ParcServices addparcservices();
+ParcServices Changeparcservices(Parcs Parc);
 
 void manageBooking(vector<Booking>& bookings);
 void changeBooking(vector<Booking>& bookings, int id);
@@ -31,65 +35,29 @@ LuxuryLevel changeLuxuryLevel(LuxuryLevel);
 
 Accommondations createAccomodation();
 Accommondations editAccommodation(Accommondations accommodation);
+void SearchAccommodation(vector<Accommondations>& Accommondations);
 
 void SearchCustomer(const vector<Customer>& customers);
 Customer CreateCustomer();
 Customer DeleteCustomer(string cust);
 Customer ChangeCustomer(string cust);
+void SearchCustomer( vector<Customer>& customers, string name);
+Customer CreateCustomer();
+void DeleteCustomer(vector<Customer>& customers);
+
+Parcs CreateParc(vector<Parcs>& Parc);
+void ChangeParc(vector<Parcs>& Parcs);
+void DeleteParc(vector<Parcs>& Parc);
+
+VacationParcs CreateVacationParc(vector<VacationParcs>& vacantionParcs);
+void ChangeVacationParc(vector<VacationParcs>& vacantionParcs);
+void DeleteVacationParc(vector<VacationParcs>& vacantionParcs);
 
 bool question(string);
 
+/*----------------------------------------------------------------------------*/
+
 int main() {
-	char perms;
-	int quit = 0;
-	int keuze;
-	int parkkeuze;
-	int accomodationkeuze;
-	do
-	{
-		cout << "Are you a customer, an employee or the owner?" << endl;
-		do
-		{
-			cout << "C - customer"<< endl;
-			cout << "E - employee"<< endl;
-			cout << "O - owner"<< endl;
-			cin >> perms;
-		} while ((perms != 'o') and (perms != 'e') and (perms != 'c'));
-		cout << "What would you like to do?" << endl;
-		switch (perms)
-		{
-		case 'o':
-			cout << "(1) Manage parks" << endl;
-			cout << "(2) Manage accomodations" << endl;
-			cout << "(0) quit" << endl;
-			do
-			{
-				cout << "1, 2 or 0 : ";
-				cin >> keuze;
-				switch (keuze)
-				{
-				case 1:
-					cout << "You chose the option : Manage parks" << endl;
-					cout << "What would you like to do?" << endl; 
-					cout << "--------------------------" << endl;
-					cout << "(1) Create new park" << endl;
-					cout << "(2) Change park" << endl;
-					cout << "(3) Delete park" << endl;
-					cin >> parkkeuze;
-					break;
-				case 2:
-					cout << "You chose the option : Manage accomodations" << endl;
-					cout << "What would you like to do?" << endl;
-					cout << "--------------------------" << endl;
-					cout << "(1) Create accomodation" << endl;
-					cout << "(2) Change accomodation" << endl;
-					cout << "(3) Delete accomodation" << endl;
-					cin >> accomodationkeuze;
-					break;
-				case 0:
-				default:
-					break;
-				}
 
 			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
 		case 'e':
@@ -177,6 +145,8 @@ int main() {
 	} while (question("wanna put more info in me senpai? (y/n)"));
 	return 0;
 }
+
+/*----------------------------------------------------------------------------*/
 
 Accommondations createAccomodation() {
 	//add radnom id
@@ -288,6 +258,61 @@ Accommondations editAccommodation(Accommondations accommodation) {
 
 	return accommodation;
 }
+void SearchAccommodation(vector<Accommondations>& Listaccomodations)
+{
+	int searchId;
+	int choise;
+	char askcreate;
+	int i = 0;
+	cout << "What's the ID you're looking for? : " << endl;
+	cin >> searchId;
+
+	for (Accommondations Accom : Listaccomodations)
+	{
+		i++;
+		if (Accom.getID() == searchId)
+		{
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+			do {
+				cout << "Would you like to Change or Delete this Accomondation? : " << endl << endl;
+				cout << "- 1 : Change Accomondation" << endl << "- 2 : Delete Accomondation" << endl << "- 0 : Stop" << endl << endl;
+				do {
+					cout << "Choise: ";
+					cin >> choise;
+				} while (choise < 0 or choise > 4);
+
+				if (choise == 1) {
+					editAccommodation(Accom);
+					cout << endl << "Accomondation has been changed!" << endl;
+					cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+				}
+				if (choise == 2) {
+
+					Listaccomodations.erase(Listaccomodations.begin() + i);
+					cout << endl << "Accomondation has been deleted!" << endl;
+					break;
+				}
+			} while (choise != 0);
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+		else
+		{
+			cout << "Couldn't find a Accomondation with the given id!" << endl;
+		}
+	}
+	askcreate = question("Would you like to create a new Accomondation?  (y/n) :");
+	if (askcreate)
+	{
+		createAccomodation();
+		cout << endl << "Accomondation has been created!" << endl;
+		cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	}
+	else
+	{
+		return;
+	}
+
+};
 
 LuxuryLevel createLuxury()
 {
@@ -306,7 +331,8 @@ LuxuryLevel createLuxury()
 	
 	//string
 	cout << "what is the accomodatoin kind:";
-	cin >> accomodationKind;
+	cin.ignore();
+	getline(cin, accomodationKind);
 
 	LL.setBBQ(BBQ);
 	LL.setSurroundSystem(SurroundSystem);
@@ -403,11 +429,14 @@ Customer CreateCustomer() {
 	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 	cout << "You want to create a customer account:" << endl << endl;
 	cout << endl << "What is your name: ";
-	cin >> naam;
+	cin.ignore();
+	getline(cin, naam);
 	cout << endl <<  "What is your address: ";
-	cin >> adres;
+	cin.ignore();
+	getline(cin, adres);
 	cout << endl << "What is your email address: ";
-	cin >> email;
+	cin.ignore();
+	getline(cin, email);
 
 	customer.setName(naam);
 	customer.setAddress(adres);
@@ -433,21 +462,24 @@ Customer ChangeCustomer(std::string cust) {
 
 		if (choise == 1) {
 			cout << "What is the new name: ";
-			cin >> naam;
+			cin.ignore();
+			getline(cin, naam);
 			customer.setName(naam);
 			cout << "The name is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
 		if (choise == 2) {
 			cout << endl << "What is the new address: ";
-			cin >> adres;
+			cin.ignore();
+			getline(cin, adres);
 			customer.setAddress(adres);
 			cout << endl << "The adres is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 		}
 		if (choise == 3) {
 			cout << "What is the new Email: ";
-			cin >> email;
+			cin.ignore();
+			getline(cin, email);
 			customer.setMail(email);
 			cout << endl << "The email is changed" << endl;
 			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
@@ -457,18 +489,49 @@ Customer ChangeCustomer(std::string cust) {
 
 	return customer;
 }
-Customer DeleteCustomer(std::string cust) {
-	Customer customer;
+void DeleteCustomer(vector<Customer>& customers) {
 
-	return customer;
+	std::string name, Cnaam;
+	int Csize, Nsize, i;
+
+	Csize = customers.size();
+	Nsize = customers.size();
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to delete a customer: (y, n) ? ")) {
+		cout << "Give the name of the customer :" << endl;
+		cin.ignore();
+		getline(cin, name);
+		for (i = 0; i < Csize; i++)
+		{
+			Cnaam = customers[i].getName();
+			if (name.compare(Cnaam) == 0) {
+				if (question("Are you sure you want to delete a customer: (y, n) ? ")) {
+					customers.erase(customers.begin() + i);
+					Nsize = customers.size();
+				}
+				break;
+			}
+
+		}
+		if (Csize == Nsize) {
+			cout << endl << "There was no change! Maybe the customer name does not exist" << endl;
+		}
+		else {
+			cout << endl << "A customer was deleted!" << endl;
+		}
+	}
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
 }
-void SearchCustomer(const vector<Customer>& customers)
+void SearchCustomer(vector<Customer>& customers, string name)
 {
 	string searchname;
 	int choise;
 	char askcreate;
 	cout << "What's the first name of the customer you're looking for? : " << endl;
-	cin >> searchname;
+	cin.ignore();
+	getline(cin, searchname);
 
 	for (Customer customer : customers)
 	{
@@ -489,7 +552,7 @@ void SearchCustomer(const vector<Customer>& customers)
 					cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
 				}
 				if (choise == 2) {
-					DeleteCustomer(searchname);
+					DeleteCustomer(customers);
 					cout << endl << "Customer has been deleted!" << endl;
 					break;
 				}
@@ -534,6 +597,50 @@ ParcServices addparcservices()
 	parcservices.setWaterBikes(question("water bikes (y, n):"));
 	return parcservices;
 }
+ParcServices Changeparcservices(Parcs Parc) {
+
+	ParcServices parcservices;
+	int choise;
+
+	parcservices = Parc.getServices();
+
+	do {
+
+		cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		cout << "services the park" << Parc.getName() << "has to offer:" << endl;
+		cout << parcservices.toString() << endl;
+		cout << "What would you like to change:" << endl;
+		cout << endl << "- 1 : Change subtropicSwimmingPool" << endl << "- 2 : Change SportsInfrastructure" << endl << "- 3 : Change BowlingAlley";
+		cout << endl << "- 4 : Change BicycleRent" << endl << "- 5 : Change childerensParadise" << endl << "- 6 : Change waterBikes" << endl << "- 0 : Stop" << endl << endl;
+		do {
+			cout << "Choise: ";
+			cin >> choise;
+		} while (choise < 0 or choise > 7);
+
+		if (choise == 1) {
+			parcservices.setSubtropicSwimmingPool(parcservices.getSubtropicSwimmingPool() ? false : true);
+		}
+		else if (choise == 2) {
+			parcservices.setSportsInfrastructure(parcservices.getSportsInfrastructure() ? false : true);
+		}
+		else if (choise == 3) {
+			parcservices.setBowlingAlley(parcservices.getBowlingAlley() ? false : true);
+		}
+		else if (choise == 4) {
+			parcservices.setBicycleRent(parcservices.getBicycleRent() ? false : true);
+		}
+		else if (choise == 5) {
+			parcservices.setChilderensParadise(parcservices.getChilderensParadise() ? false : true);
+		}
+		else if (choise == 6) {
+			parcservices.setWaterBikes(parcservices.getWaterBikes() ? false : true);
+		}
+
+	} while (choise != 0);
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	return parcservices;
+}
 // Adds a new booking with the given ID to the list of bookings
 void addBooking(vector<Booking>& bookings, int id) {
 	Booking newBooking;
@@ -574,11 +681,13 @@ void changeBooking(vector<Booking>& bookings, int id) {
 
 			// Read the new customer information from standard input
 			cout << "Enter the customer's name: ";
-			cin >> name;
+			cin.ignore();
+			getline(cin, name);
 			newCustomer.setName(name);
 
 			cout << "Enter the customer's address: ";
-			cin >> address;
+			cin.ignore();
+			getline(cin, address);
 			newCustomer.setAddress(address);
 
 			cout << "Enter the customer's email address: ";
@@ -630,7 +739,8 @@ void changeBooking(vector<Booking>& bookings, int id) {
 			hasBreakfastService = question("Does the accommodation have a breakfast service (y, n)?");
 			hasCleaningService = question("Does the accommodation have a cleaning service (y, n)?");
 			cout << "what kind of accommondation is it? ";
-			cin >> accommodationKind;
+			cin.ignore();
+			getline(cin, accommodationKind);
 
 			luxuryLevel.setBBQ(hasBBQ);
 			luxuryLevel.setSurroundSystem(hasSurroundSystem);
@@ -685,9 +795,264 @@ void manageBooking(vector<Booking>& bookings) {
 	}
 }
 
+Parcs CreateParc(vector<Parcs>& Parc) {
+	Parcs parc;
+	std::string name, address;
+	ParcServices ParcService;
+	vector<Accommondations> Accommondation;
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to add a new parc : (y,n) ? ")) {
+
+		cout << "Give the name of the new parc: " << endl;
+		cin.ignore();
+		getline(cin, name);
+		cout << "Give the address of the new parc:" << endl;
+		cin.ignore();
+		getline(cin, address);
+		cout << "Give the services of the parc:" << endl;
+		ParcService = addparcservices();
+		cout << "The program has automaticly made a list for Accommondation:" << endl;
+
+	}
+
+	parc.setName(name);
+	parc.setAddress(address);
+	parc.setServices(ParcService);
+	parc.setAccommondations(Accommondation);
+
+	Parc.push_back(parc);
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	return parc;
+}
+void ChangeParc(vector<Parcs>& Parcs) {
+
+	int choise, Vsize, i, Pchoise;
+	std::string Pname, name, address;
+	ParcServices ParcService;
+
+	Vsize = Parcs.size();
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	cout << "Your are currently changing parcs: " << endl;
+	cout << "This are the current parcs: " << endl;
+
+	for (i = 0; i < Vsize; i++) {
+		Pname = Parcs[i].getName();
+		cout << i << ") " << Pname << endl;
+	}
+	cout << "Which parc would you like to change: " << endl;
+	do {
+		cout << "Choise: ";
+		cin >> Pchoise;
+	} while (Pchoise < 0 or Pchoise > Vsize - 1);
+
+	do {
+		cout << endl << "- 1 : Change Name" << endl << "- 2 : Change address" << endl << "- 3 : Add Services" << endl << "- 4 : Delete Services" << endl << "- 0 : Stop" << endl << endl;
+		do {
+			cout << "Choise: ";
+			cin >> choise;
+		} while (choise < 0 or choise > 5);
+
+
+		if (choise == 1) {
+			cout << "What is the new name: ";
+			cin.ignore();
+			getline(cin, name);
+			Parcs[Pchoise].setName(name);
+			cout << "The name is changed" << endl;
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+		if (choise == 2) {
+			cout << endl << "What is the new address: ";
+			cin.ignore();
+			getline(cin, address);
+			Parcs[Pchoise].setAddress(address);
+			cout << endl << "The address is changed" << endl;
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+		if (choise == 3) {
+			cout << "Add Services through parc: ";
+			ParcService = Changeparcservices(Parcs[Pchoise]);
+			Parcs[Pchoise].setServices(ParcService);
+			cout << endl << "The services is changed" << endl;
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+		if (choise == 4) {
+			cout << "Delete Services through parc: ";
+			ParcService = Changeparcservices(Parcs[Pchoise]);
+			Parcs[Pchoise].setServices(ParcService);
+			cout << endl << "The services is changed" << endl;
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+	} while (choise != 0);
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+}
+void DeleteParc(vector<Parcs>& Parc) {
+	std::string name, Pnaam;
+	int Vsize, Nsize, i;
+
+	Vsize = Parc.size();
+	Nsize = Parc.size();
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to delete a parc : (y, n) ? ")) {
+		cout << "Give the name of the parc :" << endl;
+		cin.ignore();
+		getline(cin, name);
+		for (i = 0; i < Vsize; i++)
+		{
+			Pnaam = Parc[i].getName();
+			if (name.compare(Pnaam) == 0) {
+				if (question("Are you sure you want to delete the parc: (y, n) ? ")) {
+					Parc.erase(Parc.begin() + i);
+					Nsize = Parc.size();
+				}
+				break;
+			}
+
+		}
+		if (Vsize == Nsize) {
+			cout << endl << "There was no change! Maybe the parc name does not exist" << endl;
+		}
+		else {
+			cout << endl << "A Vacation parc was deleted!" << endl;
+		}
+	}
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+}
+
+VacationParcs CreateVacationParc(vector<VacationParcs>& vacantionParcs) {
+	VacationParcs VacationParc;
+	string name, address, VAT;
+	vector<Parcs> parc;
+	vector<Customer> customers;
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to add a new vacation parc : (y,n) ? ")) {
+
+		cout << "Give the name of the new vacation parc:" << endl;
+		cin.ignore();
+		getline(cin, name);
+		cout << "Give the address of the new vacation parc:" << endl;
+		cin.ignore();
+		getline(cin, address);
+		cout << "Give the VAT nummer of the new vacation parc:" << endl;
+		cin.ignore();
+		getline(cin, VAT);
+		cout << "The program has automaticly made a list for parcs:" << endl;
+		cout << "The program has automaticly made a list for customers:" << endl;
+
+	}
+
+	VacationParc.setName(name);
+	VacationParc.setAddress(address);
+	VacationParc.setVAT(VAT);
+	VacationParc.setParcs(parc);
+	VacationParc.setCustomers(customers);
+
+	vacantionParcs.push_back(VacationParc);
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	return VacationParc;
+}
+void ChangeVacationParc(vector<VacationParcs>& vacantionParcs) {
+	int choise,Vsize,i,VPchoise;
+	std::string VPname, name, address, VAT;
+	
+	Vsize = vacantionParcs.size();
+
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+	cout << "Your are currently changing vacantionParcs: " << endl;
+	cout << "This are the current vacantionParcs: " << endl;
+
+	for (i = 0; i < Vsize; i++) {
+		VPname = vacantionParcs[i].getName();
+		cout << i << ") " << VPname << endl;
+	}
+	cout << "Which vacationParc would you like to change: " << endl;
+	do {
+		cout << "Choise: ";
+		cin >> VPchoise;
+	} while (VPchoise < 0 or VPchoise > Vsize-1);
+
+	do {
+		cout << endl << "- 1 : Change Name" << endl << "- 2 : Change address" << endl << "- 3 : Change VAT" << endl << "- 0 : Stop" << endl << endl;
+		do {
+			cout << "Choise: ";
+			cin >> choise;
+		} while (choise < 0 or choise > 4);
+
+
+		if (choise == 1) {
+			cout << "What is the new name: ";
+			cin.ignore();
+			getline(cin, name);
+			vacantionParcs[VPchoise].setName(name);
+			cout << "The name is changed" << endl;
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+		if (choise == 2) {
+			cout << endl << "What is the new address: ";
+			cin.ignore();
+			getline(cin, address);
+			vacantionParcs[VPchoise].setAddress(address);
+			cout << endl << "The address is changed" << endl;
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+		if (choise == 3) {
+			cout << "What is the new VAT: ";
+			cin.ignore();
+			getline(cin, VAT);
+			vacantionParcs[VPchoise].setVAT(VAT);
+			cout << endl << "The VAT is changed" << endl;
+			cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+		}
+	} while (choise != 0);
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+}
+void DeleteVacationParc(vector<VacationParcs>& vacantionParcs) {
+
+	std::string name, VPnaam;
+	int Vsize,Nsize,i;
+
+	Vsize = vacantionParcs.size();
+	Nsize = vacantionParcs.size();
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+
+	if (question("You want to delete a vacation parc : (y, n) ? ")) {
+		cout << "Give the name of the vacation parc :" << endl;
+		cin.ignore();
+		getline(cin, name);
+		for (i = 0; i < Vsize; i++)
+		{
+			VPnaam = vacantionParcs[i].getName();
+			if (name.compare(VPnaam) == 0) {
+				if (question("Are you sure you want to delete the vacation parc: (y, n) ? ")) {
+					vacantionParcs.erase(vacantionParcs.begin() + i);
+					Nsize = vacantionParcs.size();
+				}
+				break;
+			}
+
+		}
+		if (Vsize == Nsize) {
+			cout << endl << "There was no change! Maybe the vacation parc name does not exist" << endl;
+		}
+		else {
+			cout << endl << "A Vacation parc was deleted!" << endl;
+		}
+	}
+	cout << endl << endl << "----------------------------------------------------------------------------" << endl << endl;
+}
+
 bool question(string q) {
 	string temp;
 	cout << q << endl;
 	do { cin >> temp; } while (temp != "n" and temp != "y");
-	return temp == "yes";
+	return temp == "y";
 }
