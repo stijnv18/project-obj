@@ -58,7 +58,56 @@ bool question(string);
 /*----------------------------------------------------------------------------*/
 
 int main() {
-
+	char perms;
+	int quit = 0;
+	int keuze;
+	int parkkeuze;
+	int accomodationkeuze;
+	do
+	{
+		cout << "Are you a customer, an employee or the owner?" << endl;
+		do
+		{
+			cout << "C - customer" << endl;
+			cout << "E - employee" << endl;
+			cout << "O - owner" << endl;
+			cin >> perms;
+		} while ((perms != 'o') and (perms != 'e') and (perms != 'c'));
+		cout << "What would you like to do?" << endl;
+		switch (perms)
+		{
+		case 'o':
+			cout << "(1) Manage parks" << endl;
+			cout << "(2) Manage accomodations" << endl;
+			cout << "(0) quit" << endl;
+			do
+			{
+				cout << "1, 2 or 0 : ";
+				cin >> keuze;
+				switch (keuze)
+				{
+				case 1:
+					cout << "You chose the option : Manage parks" << endl;
+					cout << "What would you like to do?" << endl;
+					cout << "--------------------------" << endl;
+					cout << "(1) Create new park" << endl;
+					cout << "(2) Change park" << endl;
+					cout << "(3) Delete park" << endl;
+					cin >> parkkeuze;
+					break;
+				case 2:
+					cout << "You chose the option : Manage accomodations" << endl;
+					cout << "What would you like to do?" << endl;
+					cout << "--------------------------" << endl;
+					cout << "(1) Create accomodation" << endl;
+					cout << "(2) Change accomodation" << endl;
+					cout << "(3) Delete accomodation" << endl;
+					cin >> accomodationkeuze;
+					break;
+				case 0:
+				default:
+					break;
+				}
 			} while ((keuze != 1) and (keuze != 2) and (keuze != 0));
 		case 'e':
 			cout << "(1) Manage customers" << endl;
